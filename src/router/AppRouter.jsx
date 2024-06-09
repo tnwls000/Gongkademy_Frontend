@@ -14,7 +14,7 @@ import CourseQnA from "@pages/CourseDetail/CourseQnA";
 import CourseReview from "@pages/CourseDetail/CourseReview";
 import CourseNotice from "@pages/CourseDetail/CourseNotice";
 import CourseDetailPage from "@pages/CourseDetail/CourseDetailPage";
-import LecturePlayerPage from "@pages/LecturePlayer/LecturePlayerPage";
+import LecturePage from "@pages/Lecture/LecturePage";
 import CoursesPage from "@pages/Courses/CoursesPage";
 
 import SignUpPage from "@pages/Signup/SignUpPage";
@@ -76,8 +76,8 @@ const AppRouter = () => {
 
     //header, footer없음
     {
-      path: PATH.LECTURE_PLAYER(`:lectureId`),
-      element: <LecturePlayerPage />,
+      path: PATH.LECTURE(`:lectureId`),
+      element: <LecturePage />,
     },
   ];
   const router = createBrowserRouter([...routes]);
