@@ -1,5 +1,15 @@
+import LectureHeader from "@components/lecture/lectureHeader";
+import LecturePlayer from "@components/lecture/lecturePlayer";
+import LectureFooter from "../../components/lecture/lectureFooter";
+
 const LecturePage = () => {
-  return <div>강의 수강 페이지</div>;
+  return (
+    <div>
+      <LectureHeader />
+      <LecturePlayer />
+      <LectureFooter />
+    </div>
+  );
 };
 
 export default LecturePage;
