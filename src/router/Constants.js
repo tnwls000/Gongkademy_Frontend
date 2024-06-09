@@ -9,8 +9,7 @@ export const PATH = {
 
   COMMUNITY: (communityType) => `/community/${communityType}`,
   //TODO: 상수명이 마음에 안들어
-  COMMUNITY_ARTICLE: (communityType, articleId) =>
-    `/${communityType}/${articleId}`,
+  COMMUNITY_BOARD: (communityType, boardId) => `/${communityType}/${boardId}`,
 
   MY_PAGE: "/mypage",
 

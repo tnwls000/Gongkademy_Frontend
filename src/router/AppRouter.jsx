@@ -1,45 +1,59 @@
-import { Routes, Route } from "react-router-dom";
 import SignUpPage from "@pages/Signup/SignUpPage";
 import MyPage from "@pages/MyPage/MyPage";
 import CoursesPage from "@pages/Courses/CoursesPage";
 import HomePage from "@pages/Home/HomePage";
 import CourseDetailPage from "@pages/CourseDetail/CourseDetailPage";
 import LecturePage from "@pages/Lecture/LecturePage";
-import CommunityArticlePage from "@pages/CommunityArticle/CommunityArticlePage";
+import CommunityBoardPage from "@pages/CommunityBoard/CommunityBoardPage";
 import CommunityPage from "@pages/Community/CommunityPage";
 
 import { PATH } from "./Constants";
-import { PrivateRoutes } from "./PrivateRoutes";
+import App from "../App";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import NotFoundPage from "@pages/NotFound/NotFoundPage";
 
 const AppRouter = () => {
-  // TODO: PrivateRouter 주석 해제
-  return (
-    <Routes>
-      {/* 인증과 관계없음 */}
-      <Route path={PATH.ROOT} element={<HomePage />} />
-      <Route path={PATH.COURSES} element={<CoursesPage />} />
-      <Route
-        path={PATH.COURSE_DETAIL(`:courseId`)}
-        element={<CourseDetailPage />}
-      />
-      <Route
-        path={PATH.COMMUNITY(`:communityType`)}
-        element={<CommunityPage />}
-      />
-      <Route
-        path={PATH.COMMUNITY_ARTICLE(`:communityType,:articleId`)}
-        element={<CommunityArticlePage />}
-      />
-      <Route path={PATH.LECTURE(`:lectureId`)} element={<LecturePage />} />
+  const routes = [
+    {
+      path: PATH.ROOT,
+      element: <App />,
+      errorElement: <NotFoundPage />,
+      children: [
+        { path: PATH.ROOT, element: <HomePage /> },
 
-      {/* 로그인시에만 사용 */}
-      {/* <Route element={<PrivateRoutes />}> */}
-      <Route path={PATH.MY_PAGE} element={<MyPage />} />
-      {/* </Route> */}
-      {/* 비로그인시에만 사용 */}
-      <Route path={PATH.SIGN_UP} element={<SignUpPage />} />
-    </Routes>
-  );
+        // 커뮤니티 관련 Route
+        { path: PATH.COMMUNITY(`:communityType`), element: <CommunityPage /> },
+        {
+          path: PATH.COMMUNITY_BOARD(`:communityType,:boardId`),
+          element: <CommunityBoardPage />,
+        },
+
+        // 강의 관련 Route
+        { path: PATH.COURSES, element: <CoursesPage /> },
+        {
+          path: PATH.COURSE_DETAIL(`:courseId`),
+          element: <CourseDetailPage />,
+        },
+
+        {
+          path: PATH.LECTURE(`:lectureId`),
+          element: <LecturePage />,
+        },
+
+        //계정 관련 Route
+        {
+          path: PATH.MY_PAGE,
+          element: <MyPage />,
+        },
+        {
+          path: PATH.SIGN_UP,
+          element: <SignUpPage />,
+        },
+      ],
+    },
+  ];
+  const router = createBrowserRouter([...routes]);
+  return <RouterProvider router={router} />;
 };
 
 export default AppRouter;
