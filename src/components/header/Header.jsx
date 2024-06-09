@@ -11,7 +11,8 @@ import { useContext, useState } from "react";
 import { LoginModal } from "../login/LoginModal";
 import { Button } from "@components/common/button/Button";
 import { LoginContext } from "@contexts/LoginContext";
-
+import { PATH } from "@router/Constants";
+import { LogoImage, LogoText } from "@assets/svg/logo";
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { state, actions } = useContext(LoginContext);
@@ -31,9 +32,15 @@ const Header = () => {
     <>
       <HeaderBlock>
         <Logo />
+
         <Container>
           <NavBarItem>
-            <Link to="/">
+            <Link to={PATH.COURSES}>
+              <Button type="normal" shape="textRg">
+                강의
+              </Button>
+            </Link>
+            <Link to={PATH.COMMUNITY("고민")}>
               <Button type="normal" shape="textRg">
                 커뮤니티
               </Button>
@@ -44,7 +51,7 @@ const Header = () => {
 
         {state.isLogin ? (
           <BtnContainer>
-            <Link to="mypage">
+            <Link to={PATH.MY_PAGE}>
               <Button type="normal" shape="filledBold">
                 마이페이지
               </Button>
@@ -58,7 +65,7 @@ const Header = () => {
             <Button type="normal" shape="textRg" onClick={handleLoginBtnClick}>
               로그인
             </Button>
-            <Link to="/member/signup">
+            <Link to={PATH.SIGN_UP}>
               <Button type="normal" shape="filledBold">
                 회원가입
               </Button>

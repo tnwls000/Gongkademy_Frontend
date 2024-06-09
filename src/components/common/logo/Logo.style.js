@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const LogoBlock = styled.div`
-  padding: 16px 0;
-  height: 56px;
+  padding: 1rem 0;
 `;
+
 export const LogoContainer = styled.div`
   display: flex;
   align-items: center;

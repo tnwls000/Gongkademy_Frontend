@@ -7,7 +7,6 @@ import { ConcernCard } from "@components/concern/ConcernCard";
 import { CONCERN_LIST } from "@dummy/Concern";
 import { ConcernContianer } from "@components/concern/ConcernCard.style";
 import { COURSE_LIST } from "@dummy/Course";
-import { GongkademyLogo } from "@assets/svg/logo";
 const COURSES = COURSE_LIST;
 const CONCERNS = CONCERN_LIST;
 const HomePage = () => {

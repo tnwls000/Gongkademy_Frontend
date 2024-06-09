@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { CancelIconBox, ModalBackground, ModalBlock } from "./Modal.style";
 import { isAxiosError } from "axios";
 import { Link } from "react-router-dom";
-import { Logo } from "../common/logo/Logo";
+import { Logo } from "@components/common/logo/Logo";
 import { Flex } from "./LoginModal.style";
-import { useInput } from "../../hooks/useInput";
+import { useInput } from "@hooks/useInput";
 import { login } from "@apis/members/membersApi";
 import { Button } from "@components/common/button/Button";
 import { InputGroup } from "@components/common/input/InputGroup";
@@ -14,6 +14,7 @@ import jsonLocalStorage from "@utils/jsonLocalStorage";
 import { useLocation } from "react-router-dom";
 import { LoginContext } from "@contexts/LoginContext";
 import { Cancel } from "@assets/svg/icons";
+import { PATH } from "@router/Constants";
 const EMAIL = LOGIN_CONSTATNT.email;
 const PWD = LOGIN_CONSTATNT.password;
 
@@ -88,7 +89,7 @@ export const LoginModal = ({ setIsModalOpen }) => {
           <span>비밀번호 찾기</span>
         </Link>
 
-        <Link to="/member/signup">
+        <Link to={PATH.SIGN_UP}>
           <Button
             type="normal"
             shape="outlinedRg"
