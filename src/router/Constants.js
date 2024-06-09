@@ -19,5 +19,5 @@ export const PATH = {
 
   MY_PAGE: "/mypage",
 
-  SIGN_UP: "member/signup",
+  SIGN_UP: "/signup",
 };

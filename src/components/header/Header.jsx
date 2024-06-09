@@ -51,7 +51,7 @@ const Header = () => {
 
         {state.isLogin ? (
           <BtnContainer>
-            <Link to="mypage">
+            <Link to={PATH.MY_PAGE}>
               <Button type="normal" shape="filledBold">
                 마이페이지
               </Button>
@@ -65,7 +65,7 @@ const Header = () => {
             <Button type="normal" shape="textRg" onClick={handleLoginBtnClick}>
               로그인
             </Button>
-            <Link to="/member/signup">
+            <Link to={PATH.SIGN_UP}>
               <Button type="normal" shape="filledBold">
                 회원가입
               </Button>
