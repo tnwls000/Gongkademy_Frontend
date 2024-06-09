@@ -1,16 +1,24 @@
-import SignUpPage from "@pages/Signup/SignUpPage";
-import MyPage from "@pages/MyPage/MyPage";
-import CoursesPage from "@pages/Courses/CoursesPage";
+import { PATH } from "@router/Constants";
+import App from "../App";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
 import HomePage from "@pages/Home/HomePage";
-import CourseDetailPage from "@pages/CourseDetail/CourseDetailPage";
-import LecturePage from "@pages/Lecture/LecturePage";
+import NotFoundPage from "@pages/NotFound/NotFoundPage";
+
 import CommunityBoardPage from "@pages/CommunityBoard/CommunityBoardPage";
 import CommunityPage from "@pages/Community/CommunityPage";
 
-import { PATH } from "./Constants";
-import App from "../App";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import NotFoundPage from "@pages/NotFound/NotFoundPage";
+import CourseIntroduction from "@pages/CourseDetail/CourseIntroduction";
+import CourseCurriculum from "@pages/CourseDetail/CourseCurriculum";
+import CourseQnA from "@pages/CourseDetail/CourseQnA";
+import CourseReview from "@pages/CourseDetail/CourseReview";
+import CourseNotice from "@pages/CourseDetail/CourseNotice";
+import CourseDetailPage from "@pages/CourseDetail/CourseDetailPage";
+import LecturePlayerPage from "@pages/LecturePlayer/LecturePlayerPage";
+import CoursesPage from "@pages/Courses/CoursesPage";
+
+import SignUpPage from "@pages/Signup/SignUpPage";
+import MyPage from "@pages/MyPage/MyPage";
 
 const AppRouter = () => {
   const routes = [
@@ -33,11 +41,25 @@ const AppRouter = () => {
         {
           path: PATH.COURSE_DETAIL(`:courseId`),
           element: <CourseDetailPage />,
-        },
-
-        {
-          path: PATH.LECTURE(`:lectureId`),
-          element: <LecturePage />,
+          children: [
+            {
+              path: PATH.COURSE_INTRODUCTION(`:courseId`),
+              element: <CourseIntroduction />,
+            },
+            {
+              path: PATH.COURSE_CURRICULUM(`:courseId`),
+              element: <CourseCurriculum />,
+            },
+            { path: PATH.COURSE_QNA(`:courseId`), element: <CourseQnA /> },
+            {
+              path: PATH.COURSE_REVIEW(`:courseId`),
+              element: <CourseReview />,
+            },
+            {
+              path: PATH.COURSE_NOTICE(`:courseId`),
+              element: <CourseNotice />,
+            },
+          ],
         },
 
         //계정 관련 Route
@@ -50,6 +72,12 @@ const AppRouter = () => {
           element: <SignUpPage />,
         },
       ],
+    },
+
+    //header, footer없음
+    {
+      path: PATH.LECTURE_PLAYER(`:lectureId`),
+      element: <LecturePlayerPage />,
     },
   ];
   const router = createBrowserRouter([...routes]);
