@@ -1,18 +1,15 @@
 import { Link } from "react-router-dom";
-import { GongkademyLogo, GongkademyText } from "@assets/svg/logo";
+import { LogoImage, LogoText } from "@assets/svg/logo";
 import { LogoContainer, LogoBlock } from "./Logo.style";
-import { Teacher } from "@assets/svg/titles";
+import { PATH } from "@router/Constants";
 
-export const Logo = (isLink) => {
-  const handleLogoClick = (e) => {
-    if (!isLink) e.preventDefault();
-  };
+export const Logo = () => {
   return (
     <LogoBlock>
-      <Link to="/" onClick={handleLogoClick}>
+      <Link to={PATH.ROOT}>
         <LogoContainer>
-          <GongkademyLogo />
-          <GongkademyText />
+          <LogoImage />
+          <LogoText />
         </LogoContainer>
       </Link>
     </LogoBlock>

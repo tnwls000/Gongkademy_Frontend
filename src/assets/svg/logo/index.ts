@@ -1,2 +1,2 @@
-export { default as GongkademyLogo } from "./GongkademyLogo";
-export { default as GongkademyText } from "./GongkademyText";
+export { default as LogoImage } from "./LogoImage";
+export { default as LogoText } from "./LogoText";

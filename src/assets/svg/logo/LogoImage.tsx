@@ -1,7 +1,9 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgGongkademyLogo = (props: SVGProps<SVGSVGElement>) => (
+const SvgLogoImage = (props: SVGProps<SVGSVGElement>) => (
   <svg
+    width={24}
+    height={24}
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
@@ -14,4 +16,4 @@ const SvgGongkademyLogo = (props: SVGProps<SVGSVGElement>) => (
     />
   </svg>
 );
-export default SvgGongkademyLogo;
+export default SvgLogoImage;
