@@ -18,6 +18,8 @@ const LectureHeader = () => {
       </Link>
 
       <Text typo="bodyLg700">{lecture.lectureTitle}</Text>
+
+      <Text typo="bodyLg700">강의자료</Text>
     </HeaderBlock>
   );
 };
