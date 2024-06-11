@@ -1,14 +1,32 @@
 import LectureHeader from "@components/lecture/lectureHeader/LectureHeader";
 import LecturePlayer from "@components/lecture/lecturePlayer/LecturePlayer";
 import LectureFooter from "@components/lecture/lectureFooter/LectureFooter";
-import { lecture } from "@dummy/lecture/lecture";
+import { lectures } from "@dummy/lecture/lectures";
+import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { COURSE_ID, LECTURE_ID } from "./constants";
+
 const LecturePage = () => {
-  //param긁어와서 업데이트
+  const [searchParams] = useSearchParams();
+  const [lecture, setLecture] = useState();
+  const curLecture = lectures.find((lecture) => {
+    return (
+      lecture.cid === parseInt(searchParams.get(COURSE_ID), 10) &&
+      lecture.lid === parseInt(searchParams.get(LECTURE_ID), 10)
+    );
+  });
+
+  //TODO: 실행이 안되는 버그 있음. API때 다시 해보자.
+  useEffect(() => {
+    console.log(curLecture);
+    setLecture(curLecture);
+  }, []);
+
   return (
     <div>
-      <LectureHeader lecture={lecture} />
-      <LecturePlayer lecture={lecture} />
-      <LectureFooter lecture={lecture} />
+      <LectureHeader lecture={curLecture} />
+      <LecturePlayer lecture={curLecture} />
+      <LectureFooter lecture={curLecture} />
     </div>
   );
 };

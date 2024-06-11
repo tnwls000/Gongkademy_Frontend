@@ -1,5 +1,4 @@
 const LecturePlayer = ({ lecture }) => {
-  console.log(lecture);
   return (
     <iframe
       width="100%"
