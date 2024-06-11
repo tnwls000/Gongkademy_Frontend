@@ -1,13 +1,11 @@
-import { HeaderBlock, LectureTitle } from "./index.style";
-import { lecture } from "../../../dummy/lecture/lecture";
+import { HeaderBlock } from "./LectureHeader.style";
+
 import { Link } from "react-router-dom";
 import { PATH } from "@router/Constants";
 import { ArrowLeft } from "@/assets/svg/icons";
 import { Flex } from "../../common/flex/Flex";
 import { Text } from "../../common/text/Text";
-const LectureHeader = () => {
-  console.log(lecture);
-  console.log(lecture.courseId);
+const LectureHeader = ({ lecture }) => {
   return (
     <HeaderBlock>
       <Link to={PATH.COURSE_DETAIL(lecture.courseId)}>
