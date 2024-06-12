@@ -1,11 +1,13 @@
 import { Outlet } from "react-router-dom";
 
+import CourseDetailTop from "../../components/courseDetail/courseDetailTop/CourseDetailTop";
 const CourseDetailPage = () => {
   return (
-    <div>
-      <p>강의상세페이지</p>
+    <main>
+      <CourseDetailTop />
+
       <Outlet />
-    </div>
+    </main>
   );
 };
 
