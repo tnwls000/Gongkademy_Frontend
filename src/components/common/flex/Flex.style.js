@@ -1,0 +1,33 @@
+import styled from "styled-components";
+
+export const FlexBlock = styled.div`
+  display: flex;
+  flex-direction: ${(props) => props.direction || "row"};
+  flex-wrap: ${(props) => props.wrap || "nowrap"};
+  flex-basis: ${(props) => props.basis || "auto"};
+  flex-grow: ${(props) => props.grow};
+  flex-shrink: ${(props) => props.shrink};
+  align-items: ${(props) => props.align};
+  justify-content: ${(props) => props.justify};
+  gap: ${(props) => props.gap};
+  margin: ${(props) => props.margin};
+  margin-right: ${(props) => props.marginRight};
+  margin-top: ${(props) => props.marginTop};
+  margin-left: ${(props) => props.marginLeft};
+  margin-bottom: ${(props) => props.marginBottom};
+  padding: ${(props) => props.padding};
+  padding-top: ${(props) => props.paddingTop};
+  padding-right: ${(props) => props.paddingRight};
+  padding-bottom: ${(props) => props.paddingBottom};
+  padding-left: ${(props) => props.paddingLeft};
+  border: ${(props) => props.border};
+  border-radius: ${(props) => props.border};
+  border-color: ${(props) => props.borderColor};
+  border-top: ${(props) => props.borderTop};
+  border-right: ${(props) => props.borderRight};
+  border-bottom: ${(props) => props.borderBottom};
+  border-left: ${(props) => props.borderLeft};
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  position: ${(props) => props.position || "static"};
+`;

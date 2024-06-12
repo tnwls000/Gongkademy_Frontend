@@ -11,7 +11,7 @@ export const PATH = {
   COURSE_REVIEW: (courseId) => `/course/${courseId}/review`,
   COURSE_NOTICE: (courseId) => `/course/${courseId}/notice`,
 
-  LECTURE_PLAYER: (lectureId) => `/lecture/${lectureId}`, //TODO: queryString 방식으로 변경 예정
+  LECTURE: `/course`,
 
   COMMUNITY: (communityType) => `/community/${communityType}`,
   //TODO: 상수명이 마음에 안들어
