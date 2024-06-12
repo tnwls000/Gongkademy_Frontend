@@ -1,7 +1,7 @@
 import { FooterBlock } from "./LectureFooter.style";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/icons";
 import { Flex } from "../../common/flex/Flex";
-import { Text } from "../../common/text/Text";
+import Text from "../../common/text/Text";
 import { useSearchParams } from "react-router-dom";
 import { COURSE_ID, LECTURE_ID } from "../../../pages/Lecture/constants";
 
