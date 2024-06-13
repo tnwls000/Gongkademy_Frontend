@@ -12,6 +12,8 @@ import { LoginModal } from "../login/LoginModal";
 import { Button } from "@components/common/button/Button";
 import { LoginContext } from "@contexts/LoginContext";
 import { PATH } from "@router/Constants";
+import { QuestionMark, Teacher } from "@assets/svg/titles";
+import { Text } from "../common/text/Text";
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { state, actions } = useContext(LoginContext);

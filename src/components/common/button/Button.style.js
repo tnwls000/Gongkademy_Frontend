@@ -6,6 +6,11 @@ export const StyledButton = styled.button`
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
   ${({ theme }) => theme.typo.bodyRg400};
 
   //Bold
