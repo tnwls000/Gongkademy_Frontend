@@ -4,19 +4,30 @@ export const PATH = {
 
   //강좌는 Course, 강의 1개는 lecture
   COURSES: "/courses",
-  COURSE_DETAIL: (courseId) => `/course/${courseId}`,
-  COURSE_INTRODUCTION: (courseId) => `/course/${courseId}`,
-  COURSE_CURRICULUM: (courseId) => `/course/${courseId}/curriculum`,
-  COURSE_QNA: (courseId) => `/course/${courseId}/qna`,
-  COURSE_REVIEW: (courseId) => `/course/${courseId}/review`,
-  COURSE_NOTICE: (courseId) => `/course/${courseId}/notice`,
+  COURSE_DETAIL: (courseId) =>
+    `/course/${courseId}`,
+  COURSE_INTRODUCTION: (courseId) =>
+    `/course/${courseId}`,
+  COURSE_CURRICULUM: (courseId) =>
+    `/course/${courseId}/curriculum`,
+  COURSE_QNA: (courseId) =>
+    `/course/${courseId}/qna`,
+  COURSE_REVIEW: (courseId) =>
+    `/course/${courseId}/review`,
+  COURSE_NOTICE: (courseId) =>
+    `/course/${courseId}/notice`,
 
-  LECTURE_PLAYER: (lectureId) => `/lecture/${lectureId}`, //TODO: queryString 방식으로 변경 예정
+  LECTURE: `/course`,
 
-  COMMUNITY: (communityType) => `/community/${communityType}`,
+  COMMUNITY: (communityType) =>
+    `/community/${communityType}`,
   //TODO: 상수명이 마음에 안들어
-  COMMUNITY_BOARD: (communityType, boardId) => `/${communityType}/${boardId}`,
-
+  COMMUNITY_BOARD: (communityType, boardId) =>
+    `/${communityType}/${boardId}`,
+  COMMUNITY_MAKE_QNA: () =>
+    `/community/regist/Q&A`,
+  COMMUNITY_MAKE_CONCERN: (communityType) =>
+    `/community/regist/고민`,
   MY_PAGE: "/mypage",
 
   SIGN_UP: "/signup",

@@ -2,15 +2,15 @@ import { styled } from "styled-components";
 
 export const SearchBarContainer = styled.div`
   display: flex;
-  width: 608px;
-  gap: 8px;
+  width: 38rem;
+  gap: 0.5rem;
 `;
 export const StyledSearchBar = styled.input`
   flex-shrink: 1;
   flex-grow: 1;
-  width: 504px;
-  min-width: 200px;
-  height: 48px;
+  width: 31.5rem;
+  min-width: 12.5rem;
+  height: 3rem;
   border: none;
   outline: none;
   background-color: ${({ theme }) =>
@@ -19,8 +19,8 @@ export const StyledSearchBar = styled.input`
   border-radius: 8px;
 `;
 export const StyledSelect = styled.div`
-  width: 96px;
-  height: 48px;
+  width: 6rem;
+  height: 3rem;
   border: none;
   outline: none;
   background-color: ${({ theme }) =>
@@ -36,7 +36,7 @@ export const Selected = styled.div`
   cursor: pointer;
 `;
 export const SelectedValue = styled.div`
-  font-size: 16px;
+  font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
   //   text-overflow: ellipsis;
@@ -47,7 +47,7 @@ export const Arrow = styled.div`
 export const Options = styled.ul`
   list-style-type: none;
   margin-top: 10px;
-  width: 96px;
+  width: 6rem;
   //   height: 48px;
   border: none;
   outline: none;
@@ -61,8 +61,8 @@ export const Options = styled.ul`
     props.active ? "initial" : "none"};
 `;
 export const Option = styled.li`
-  line-height: 48px;
-  width: 96px;
+  line-height: 3rem;
+  width: 6rem;
   padding: 0px 16px;
   &:hover {
     background-color: ${({ theme }) =>

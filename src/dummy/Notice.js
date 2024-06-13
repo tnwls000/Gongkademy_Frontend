@@ -1,0 +1,42 @@
+export const NOTICE_LIST = [
+  {
+    id: 1,
+    title: "공지사항1",
+    content: "안녕하세요. 공카데미입니다^^",
+    date: "2022년 5월 13일",
+    like: 1,
+    viewCnt: 10,
+  },
+  {
+    id: 2,
+    title: "공지사항2",
+    content: "안녕하세요. 공카데미입니다^^",
+    date: "2022년 5월 13일",
+    like: 1,
+    viewCnt: 10,
+  },
+  {
+    id: 3,
+    title: "공지사항3",
+    content: "안녕하세요. 공카데미입니다^^",
+    date: "2022년 5월 13일",
+    like: 1,
+    viewCnt: 10,
+  },
+  {
+    id: 4,
+    title: "공지사항4",
+    content: "안녕하세요. 공카데미입니다^^",
+    date: "2022년 5월 13일",
+    like: 1,
+    viewCnt: 10,
+  },
+  {
+    id: 5,
+    title: "공지사항5",
+    content: "안녕하세요. 공카데미입니다^^",
+    date: "2022년 5월 13일",
+    like: 1,
+    viewCnt: 10,
+  },
+];

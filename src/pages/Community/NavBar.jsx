@@ -9,33 +9,23 @@ const NavBar = () => {
   const location = useLocation();
   return (
     <Navigate>
-      <Link to={"/community/qna"}>
-        <Button
-          type="normal"
-          shape={
-            location.pathname.includes(
-              "community/qna"
-            )
-              ? "textBold"
-              : "textRg"
-          }
-        >
-          🙋 Q&A
-        </Button>
+      <Link to={PATH.COMMUNITY("Q&A")}>
+        {location.pathname.includes("Q&A") ? (
+          <Button text bold>
+            🙋 Q&A
+          </Button>
+        ) : (
+          <Button text> 🙋 Q&A</Button>
+        )}
       </Link>
-      <Link to={"/community/concern"}>
-        <Button
-          type="normal"
-          shape={
-            location.pathname.includes(
-              "community/concern"
-            )
-              ? "textBold"
-              : "textRg"
-          }
-        >
-          🤔 고민
-        </Button>
+      <Link to={PATH.COMMUNITY("concern")}>
+        {location.pathname.includes("concern") ? (
+          <Button text bold>
+            🤔 고민
+          </Button>
+        ) : (
+          <Button text> 🤔 고민</Button>
+        )}
       </Link>
     </Navigate>
   );

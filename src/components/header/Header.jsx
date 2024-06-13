@@ -16,9 +16,11 @@ import { Button } from "@components/common/button/Button";
 import { LoginContext } from "@contexts/LoginContext";
 import { PATH } from "@router/Constants";
 import {
-  LogoImage,
-  LogoText,
-} from "@assets/svg/logo";
+  QuestionMark,
+  Teacher,
+} from "@assets/svg/titles";
+import { Text } from "../common/text/Text";
+
 const Header = () => {
   const [isModalOpen, setIsModalOpen] =
     useState(false);
@@ -44,38 +46,21 @@ const Header = () => {
         <Container>
           <NavBarItem>
             <Link to={PATH.COURSES}>
-              <Button
-                type="normal"
-                shape="textRg"
-              >
-                강의
-              </Button>
+              <Button text>강의</Button>
             </Link>
-            <Link to={PATH.COMMUNITY("qna")}>
-              <Button
-                type="normal"
-                shape="textRg"
-              >
-                커뮤니티
-              </Button>
+            <Link to={PATH.COMMUNITY("concern")}>
+              <Button text>커뮤니티</Button>
             </Link>
           </NavBarItem>
         </Container>
         <SearchBar placeholder="어떤 걸 배워볼까요?"></SearchBar>
-
         {state.isLogin ? (
           <BtnContainer>
             <Link to={PATH.MY_PAGE}>
-              <Button
-                type="normal"
-                shape="filledBold"
-              >
-                마이페이지
-              </Button>
+              <Button fill>마이페이지</Button>
             </Link>
             <Button
-              type="normal"
-              shape="textRg"
+              text
               onClick={handleLogoutClick}
             >
               로그아웃
@@ -84,17 +69,13 @@ const Header = () => {
         ) : (
           <BtnContainer>
             <Button
-              type="normal"
-              shape="textRg"
+              outline
               onClick={handleLoginBtnClick}
             >
               로그인
             </Button>
             <Link to={PATH.SIGN_UP}>
-              <Button
-                type="normal"
-                shape="filledBold"
-              >
+              <Button fill bold>
                 회원가입
               </Button>
             </Link>

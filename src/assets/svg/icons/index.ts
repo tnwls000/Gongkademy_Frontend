@@ -11,3 +11,5 @@ export { default as Magnifier } from "./Magnifier";
 export { default as Visible } from "./Visible";
 export { default as TrashCan } from "./TrashCan";
 export { default as Trophy } from "./Trophy";
+export { default as Like } from "./Like";
+export { default as LikeActive } from "./LikeActive";
