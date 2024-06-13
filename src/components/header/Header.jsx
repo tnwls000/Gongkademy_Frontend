@@ -12,7 +12,6 @@ import { LoginModal } from "../login/LoginModal";
 import { Button } from "@components/common/button/Button";
 import { LoginContext } from "@contexts/LoginContext";
 import { PATH } from "@router/Constants";
-import { LogoImage, LogoText } from "@assets/svg/logo";
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { state, actions } = useContext(LoginContext);
@@ -36,14 +35,10 @@ const Header = () => {
         <Container>
           <NavBarItem>
             <Link to={PATH.COURSES}>
-              <Button type="normal" shape="textRg">
-                강의
-              </Button>
+              <Button text>강의</Button>
             </Link>
             <Link to={PATH.COMMUNITY("고민")}>
-              <Button type="normal" shape="textRg">
-                커뮤니티
-              </Button>
+              <Button text>커뮤니티</Button>
             </Link>
           </NavBarItem>
         </Container>
@@ -52,21 +47,19 @@ const Header = () => {
         {state.isLogin ? (
           <BtnContainer>
             <Link to={PATH.MY_PAGE}>
-              <Button type="normal" shape="filledBold">
-                마이페이지
-              </Button>
+              <Button fill>마이페이지</Button>
             </Link>
-            <Button type="normal" shape="textRg" onClick={handleLogoutClick}>
+            <Button text onClick={handleLogoutClick}>
               로그아웃
             </Button>
           </BtnContainer>
         ) : (
           <BtnContainer>
-            <Button type="normal" shape="textRg" onClick={handleLoginBtnClick}>
+            <Button outline onClick={handleLoginBtnClick}>
               로그인
             </Button>
             <Link to={PATH.SIGN_UP}>
-              <Button type="normal" shape="filledBold">
+              <Button fill bold>
                 회원가입
               </Button>
             </Link>

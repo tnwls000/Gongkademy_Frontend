@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { color } from "../../../styles/palette";
 
 export const StyledButton = styled.button`
@@ -33,6 +33,7 @@ export const StyledButton = styled.button`
     css`
       color: ${color.white};
       background-color: ${color.black};
+      border: none;
 
       &:hover {
         background-color: ${color.gray800};
@@ -78,6 +79,7 @@ export const StyledButton = styled.button`
     css`
       color: ${color.black};
       background-color: ${color.white};
+      border: none;
 
       &:hover {
         color: ${color.gray800};
