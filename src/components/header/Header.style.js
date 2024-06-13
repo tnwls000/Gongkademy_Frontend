@@ -25,13 +25,6 @@ export const BtnContainer = styled.div`
   gap: 8px;
 `;
 
-export const NavBarItem = styled.div`
-  font: ${({ theme }) => theme.typo.subtitleRg500};
-  text-align: center;
-  padding: 12px 16px;
-  cursor: pointer;
-`;
-
 export const SearchBar = styled.input`
   flex-shrink: 1;
   flex-grow: 1;
