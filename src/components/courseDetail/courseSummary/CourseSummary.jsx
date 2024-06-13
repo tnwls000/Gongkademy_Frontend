@@ -1,21 +1,47 @@
 import { Flex } from "../../common/flex/Flex";
 import Text from "@components/common/text/Text";
-
+import Button from "../../common/button/Button";
+import { StarIcon } from "@assets/svg/icons";
+import { color } from "../../../styles/palette";
+import { BookIcon, BookMarkIcon } from "@/assets/svg/icons";
 const CourseSummary = () => {
   return (
-    <Flex direction="column">
+    <Flex direction="column" padding="1rem 0" justify="space-between">
       <Text typo="titleSm700">재료역학 전단력과 굽힘모멘트</Text>
-      <div>별점</div>
-      <Text>4.6</Text>
-      <Flex>
-        <Text typo="bodySm400">수강평 100개</Text>
-        <Text typo="bodySm400">수강평 100개</Text>
+
+      <Flex direction="column" gap="0.5rem">
+        <Flex>
+          <StarIcon width="16" fill={color.yellow} />
+          <Text>{4.6}</Text>
+        </Flex>
+
+        <Flex gap="0.5rem">
+          <Text typo="bodySm400">수강평</Text>
+          <Text typo="bodySm700">{100}개</Text>
+          <Text typo="bodySm400">수강생</Text>
+          <Text typo="bodySm700">{100}명</Text>
+        </Flex>
+
+        <Flex gap="0.5rem">
+          <Text typo="bodySm400">강의</Text>
+          <Text typo="bodySm700">{50}개</Text>
+          <Text typo="bodySm700">(18시간 30분)</Text>
+        </Flex>
       </Flex>
-      <Flex>
-        <Text typo="bodySm400">50개의 강의</Text>
-        <Text typo="bodySm400">(18시간)</Text>
+
+      <Flex gap="1rem">
+        <Button outline>
+          <BookIcon width="16" />
+          강의자료
+        </Button>
+        <Button outline>
+          <BookMarkIcon width="16" />
+          저장하기
+        </Button>
       </Flex>
-      {/* <Button>수강하기</Button> */}
+      <Button fill cta>
+        수강하기
+      </Button>
     </Flex>
   );
 };

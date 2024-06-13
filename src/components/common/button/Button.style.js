@@ -9,6 +9,7 @@ export const StyledButton = styled.button`
 
   display: flex;
   gap: 0.5rem;
+  justify-content: center;
   align-items: center;
 
   ${({ theme }) => theme.typo.bodyRg400};
