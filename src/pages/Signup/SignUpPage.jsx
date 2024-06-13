@@ -1,17 +1,16 @@
 import SignUpForm from "@components/signup/SignUpForm";
 import { PageTitle } from "@components/common/page/PageTitle";
 // import { Lock&key } from "@assets/svg/titles";
-import { PageBlock } from "@components/common/page/PageBlock";
-
+import PageLayout from "../../components/common/page/PageLayout";
 const SignUpPage = () => {
   return (
-    <PageBlock>
+    <PageLayout>
       <PageTitle>
         {/* <Lock /> */}
         <h2>회원가입</h2>
       </PageTitle>
       <SignUpForm />
-    </PageBlock>
+    </PageLayout>
   );
 };
 
