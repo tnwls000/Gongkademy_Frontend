@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { PATH } from "@router/Constants";
 import { ArrowLeft } from "@/assets/svg/icons";
 import { Flex } from "../../common/flex/Flex";
-import { Text } from "../../common/text/Text";
+import Text from "../../common/text/Text";
 const LectureHeader = ({ lecture }) => {
   return (
     <HeaderBlock>

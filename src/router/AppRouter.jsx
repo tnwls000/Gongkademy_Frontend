@@ -111,7 +111,6 @@ const AppRouter = () => {
 
     //header, footer없음
     {
-      // path: PATH.LECTURE,
       path: PATH.LECTURE,
       element: <LecturePage />,
     },

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-export const PageBlock = styled.div`
-  margin-top: 48px;
+export const PageLayoutBlock = styled.main`
+  margin-top: 3rem;
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 24px;
+  gap: 1.5rem;
 `;

@@ -26,14 +26,14 @@ const LecturePage = () => {
   }, []);
 
   return (
-    <Flex>
+    <PageBlock>
       <Flex direction="column" width="100%">
         <LectureHeader lecture={curLecture} />
         <LecturePlayer lecture={curLecture} />
         <LectureFooter lecture={curLecture} />
       </Flex>
       <LectureSidebar lecture={curLecture} />
-    </Flex>
+    </PageBlock>
   );
 };
 
