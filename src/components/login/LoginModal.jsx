@@ -6,7 +6,7 @@ import { Logo } from "@components/common/logo/Logo";
 import { Flex } from "./LoginModal.style";
 import { useInput } from "@hooks/useInput";
 import { login } from "@apis/members/membersApi";
-import { Button } from "@components/common/button/Button";
+import Button from "@components/common/button/Button";
 import { InputGroup } from "@components/common/input/InputGroup";
 import LOGIN_CONSTATNT from "./Constant";
 import { PwdInputGroup } from "@components/common/input/PwdInputGroup";

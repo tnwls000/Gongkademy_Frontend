@@ -3,7 +3,7 @@ import {
   StyledInput,
   Flex,
 } from "@components/common/input/InputGroup.style";
-import { Button } from "@components/common/button/Button";
+import Button from "@components/common/button/Button";
 import { ValidMessage } from "@components/common/input/ValidMessage";
 
 export const NormalInputGroup = ({ auth, state, field, onChange, onClick }) => {

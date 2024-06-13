@@ -18,7 +18,7 @@ import {
 } from "@apis/members/membersApi";
 import { useNavigate } from "react-router-dom";
 import { useInput } from "@hooks/useInput";
-import { Button } from "@components/common/button/Button";
+import Button from "@components/common/button/Button";
 import { PwdInputGroup } from "@components/common/input/PwdInputGroup";
 import { InputGroup } from "@components/common/input/InputGroup";
 import { NormalInputGroup } from "@components/common/input/NormalInputGroup";

@@ -1,10 +1,11 @@
 import { PageTitle } from "@components/common/page/PageTitle";
 import { MyPageContainer, Tab } from "./MyPage.style";
 import { Link } from "react-router-dom";
+import PageLayout from "../../components/common/page/PageLayout";
 
 const MyPage = () => {
   return (
-    <>
+    <PageLayout>
       <PageTitle>마이페이지</PageTitle>
       <MyPageContainer>
         <Link to="update">
@@ -14,7 +15,7 @@ const MyPage = () => {
           <Tab>내가 쓴 질문</Tab>
         </Link>
       </MyPageContainer>
-    </>
+    </PageLayout>
   );
 };
 

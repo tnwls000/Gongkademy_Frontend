@@ -2,18 +2,16 @@ import { Logo } from "@components/common/logo/Logo";
 import { Link, useNavigate } from "react-router-dom";
 import {
   HeaderBlock,
-  Container,
-  NavBarItem,
-  SearchBar,
   BtnContainer,
+  SearchBar,
 } from "@components/header/Header.style";
 import { useContext, useState } from "react";
 import { LoginModal } from "../login/LoginModal";
-import { Button } from "@components/common/button/Button";
+import Button from "@components/common/button/Button";
 import { LoginContext } from "@contexts/LoginContext";
 import { PATH } from "@router/Constants";
-import { QuestionMark, Teacher } from "@assets/svg/titles";
-import { Text } from "../common/text/Text";
+import { Flex } from "../common/flex/Flex";
+
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { state, actions } = useContext(LoginContext);
@@ -33,40 +31,41 @@ const Header = () => {
     <>
       <HeaderBlock>
         <Logo />
+        <Flex>
+          <Link to={PATH.COURSES}>
+            <Button text>강의</Button>
+          </Link>
+          <Link to={PATH.COMMUNITY("고민")}>
+            <Button text>커뮤니티</Button>
+          </Link>
+        </Flex>
 
-        <Container>
-          <NavBarItem>
-            <Link to={PATH.COURSES}>
-              <Button text>강의</Button>
-            </Link>
-            <Link to={PATH.COMMUNITY("고민")}>
-              <Button text>커뮤니티</Button>
-            </Link>
-          </NavBarItem>
-        </Container>
-        <SearchBar placeholder="어떤 걸 배워볼까요?"></SearchBar>
+        <SearchBar placeholder="어떤 걸 배워볼까요?" />
 
-        {state.isLogin ? (
-          <BtnContainer>
-            <Link to={PATH.MY_PAGE}>
-              <Button fill>마이페이지</Button>
-            </Link>
-            <Button text onClick={handleLogoutClick}>
-              로그아웃
-            </Button>
-          </BtnContainer>
-        ) : (
-          <BtnContainer>
-            <Button outline onClick={handleLoginBtnClick}>
-              로그인
-            </Button>
-            <Link to={PATH.SIGN_UP}>
-              <Button fill bold>
-                회원가입
+        <Flex aling="center" gap="0.5rem">
+          {state.isLogin ? (
+            <>
+              <Link to={PATH.MY_PAGE}>
+                <Button fill>마이페이지</Button>
+              </Link>
+              <Button text onClick={handleLogoutClick}>
+                로그아웃
               </Button>
-            </Link>
-          </BtnContainer>
-        )}
+            </>
+          ) : (
+            <>
+              {" "}
+              <Button outline onClick={handleLoginBtnClick}>
+                로그인
+              </Button>
+              <Link to={PATH.SIGN_UP}>
+                <Button fill bold>
+                  회원가입
+                </Button>
+              </Link>
+            </>
+          )}
+        </Flex>
       </HeaderBlock>
       {isModalOpen && <LoginModal setIsModalOpen={setIsModalOpen} />}
     </>
