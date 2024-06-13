@@ -33,9 +33,9 @@ const CommunityPage = () => {
             style={{
               width: "45%",
               justifyContent: "center",
-              position: "absolute",
+              position: "fixed",
               bottom: "3rem",
-              left: "30%",
+              left: "31.7%",
               zIndex: 1000, // 다른 요소들 위에 렌더링되도록 설정
             }}
           >
