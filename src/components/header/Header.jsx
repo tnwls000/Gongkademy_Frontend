@@ -1,5 +1,8 @@
 import { Logo } from "@components/common/logo/Logo";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import {
   HeaderBlock,
   BtnContainer,
@@ -13,8 +16,10 @@ import { PATH } from "@router/Constants";
 import { Flex } from "../common/flex/Flex";
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { state, actions } = useContext(LoginContext);
+  const [isModalOpen, setIsModalOpen] =
+    useState(false);
+  const { state, actions } =
+    useContext(LoginContext);
   const navigate = useNavigate();
   const handleLoginBtnClick = (e) => {
     e.preventDefault();
@@ -67,7 +72,11 @@ const Header = () => {
           )}
         </Flex>
       </HeaderBlock>
-      {isModalOpen && <LoginModal setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && (
+        <LoginModal
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </>
   );
 };

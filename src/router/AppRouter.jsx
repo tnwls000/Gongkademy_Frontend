@@ -1,12 +1,17 @@
 import { PATH } from "@router/Constants";
 import App from "../App";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 
 import HomePage from "@pages/Home/HomePage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 
 import CommunityBoardPage from "@pages/CommunityBoard/CommunityBoardPage";
 import CommunityPage from "@pages/Community/CommunityPage";
+import RegistQna from "@pages/CommunityBoard/RegistQna";
+import RegistConcern from "@pages/CommunityBoard/RegistConcern";
 
 import CourseIntroduction from "@pages/CourseDetail/CourseIntroduction";
 import CourseCurriculum from "@pages/CourseDetail/CourseCurriculum";
@@ -27,36 +32,66 @@ const AppRouter = () => {
       element: <App />,
       errorElement: <NotFoundPage />,
       children: [
-        { path: PATH.ROOT, element: <HomePage /> },
+        {
+          path: PATH.ROOT,
+          element: <HomePage />,
+        },
 
         // 커뮤니티 관련 Route
-        { path: PATH.COMMUNITY(`:communityType`), element: <CommunityPage /> },
         {
-          path: PATH.COMMUNITY_BOARD(`:communityType,:boardId`),
+          path: PATH.COMMUNITY(`:communityType`),
+          element: <CommunityPage />,
+        },
+        {
+          path: PATH.COMMUNITY_BOARD(
+            `:communityType,:boardId`
+          ),
           element: <CommunityBoardPage />,
+        },
+        {
+          path: PATH.COMMUNITY_MAKE_QNA(),
+          element: <RegistQna />,
+        },
+        {
+          path: PATH.COMMUNITY_MAKE_CONCERN(),
+          element: <RegistConcern />,
         },
 
         // 강의 관련 Route
-        { path: PATH.COURSES, element: <CoursesPage /> },
+        {
+          path: PATH.COURSES,
+          element: <CoursesPage />,
+        },
         {
           path: PATH.COURSE_DETAIL(`:courseId`),
           element: <CourseDetailPage />,
           children: [
             {
-              path: PATH.COURSE_INTRODUCTION(`:courseId`),
+              path: PATH.COURSE_INTRODUCTION(
+                `:courseId`
+              ),
               element: <CourseIntroduction />,
             },
             {
-              path: PATH.COURSE_CURRICULUM(`:courseId`),
+              path: PATH.COURSE_CURRICULUM(
+                `:courseId`
+              ),
               element: <CourseCurriculum />,
             },
-            { path: PATH.COURSE_QNA(`:courseId`), element: <CourseQnA /> },
             {
-              path: PATH.COURSE_REVIEW(`:courseId`),
+              path: PATH.COURSE_QNA(`:courseId`),
+              element: <CourseQnA />,
+            },
+            {
+              path: PATH.COURSE_REVIEW(
+                `:courseId`
+              ),
               element: <CourseReview />,
             },
             {
-              path: PATH.COURSE_NOTICE(`:courseId`),
+              path: PATH.COURSE_NOTICE(
+                `:courseId`
+              ),
               element: <CourseNotice />,
             },
           ],

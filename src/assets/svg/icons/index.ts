@@ -14,3 +14,7 @@ export { default as StarIcon } from "./StarIcon";
 export { default as Visible } from "./Visible";
 export { default as TrashCan } from "./TrashCan";
 export { default as Trophy } from "./Trophy";
+export { default as Like } from "./Like";
+export { default as LikeActive } from "./LikeActive";
+export { default as BookMark } from "./BookMark";
+export { default as Chat } from "./Chat";
