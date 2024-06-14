@@ -24,10 +24,8 @@ export const PATH = {
   //TODO: 상수명이 마음에 안들어
   COMMUNITY_BOARD: (communityType, boardId) =>
     `/${communityType}/${boardId}`,
-  COMMUNITY_MAKE_QNA: () =>
-    `/community/regist/Q&A`,
-  COMMUNITY_MAKE_CONCERN: (communityType) =>
-    `/community/regist/고민`,
+  COMMUNITY_REGIST: (communityType) =>
+    `/community/regist/` + communityType,
   MY_PAGE: "/mypage",
 
   SIGN_UP: "/signup",

@@ -1,6 +1,9 @@
 import { CourseCard } from "@components/course/CourseCard";
 import { CourseContianer } from "@components/course/CourseCard.style";
-import { QuestionMark, Teacher } from "@assets/svg/titles";
+import {
+  QuestionMark,
+  Teacher,
+} from "@assets/svg/titles";
 import { PageTitle } from "@components/common/page/PageTitle";
 import { ConcernCard } from "@components/concern/ConcernCard";
 import { CONCERN_LIST } from "@dummy/Concern";
@@ -19,21 +22,22 @@ const HomePage = () => {
         </PageTitle>
         <CourseContianer>
           {COURSES.map((course) => (
-            <CourseCard course={course} key={course.url} />
+            <CourseCard
+              course={course}
+              key={course.url}
+            />
           ))}
         </CourseContianer>
       </PageLayout>
-      <PageBlock>
-        <PageTitle>
-          <QuestionMark />
-          <h2>이런 고민도 있어요</h2>
-        </PageTitle>
-        <ConcernContianer>
-          {CONCERNS.map((concern) => (
-            <ConcernCard concern={concern} />
-          ))}
-        </ConcernContianer>
-      </PageBlock>
+      <PageTitle>
+        <QuestionMark />
+        <h2>이런 고민도 있어요</h2>
+      </PageTitle>
+      <ConcernContianer>
+        {CONCERNS.map((concern) => (
+          <ConcernCard concern={concern} />
+        ))}
+      </ConcernContianer>
     </>
   );
 };

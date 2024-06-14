@@ -17,6 +17,7 @@ export const TitleContainer = styled.div`
 export const ContentContainer = styled.div`
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 `;
 export const Content = styled.div`
   ${({ theme }) => theme.typo.bodySm400};
