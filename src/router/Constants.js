@@ -22,10 +22,12 @@ export const PATH = {
   COMMUNITY: (communityType) =>
     `/community/${communityType}`,
   //TODO: 상수명이 마음에 안들어
-  COMMUNITY_BOARD: (communityType, boardId) =>
-    `/${communityType}/${boardId}`,
+  // COMMUNITY_BOARD: (communityType, boardId) =>
+  //   `/${communityType}/${boardId}`,
   COMMUNITY_REGIST: (communityType) =>
     `/community/regist/` + communityType,
+  COMMUNITY_DETAIL: (communityType, id) =>
+    `/community/${communityType}/${id}`,
   MY_PAGE: "/mypage",
 
   SIGN_UP: "/signup",

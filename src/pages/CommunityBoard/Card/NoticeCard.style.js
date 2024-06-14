@@ -19,3 +19,6 @@ export const Content = styled.div`
   ${({ theme }) => theme.typo.bodySm400};
   color: ${({ theme }) => theme.color.gray500};
 `;
+export const Pointer = styled.div`
+  cursor: pointer;
+`;

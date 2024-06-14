@@ -30,3 +30,6 @@ export const InfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+export const Pointer = styled.div`
+  cursor: pointer;
+`;
