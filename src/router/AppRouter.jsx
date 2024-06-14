@@ -8,10 +8,9 @@ import {
 import HomePage from "@pages/Home/HomePage";
 import NotFoundPage from "@pages/NotFound/NotFoundPage";
 
-import CommunityBoardPage from "@pages/CommunityBoard/CommunityBoardPage";
 import CommunityPage from "@pages/Community/CommunityPage";
-import RegistQna from "@pages/CommunityBoard/RegistQna";
-import RegistConcern from "@pages/CommunityBoard/RegistConcern";
+import Regist from "@pages/CommunityBoard/Regist/Regist";
+import CommunityDetail from "@pages/CommunityDetail/CommunityDetail";
 
 import CourseIntroduction from "@pages/CourseDetail/CourseIntroduction";
 import CourseCurriculum from "@pages/CourseDetail/CourseCurriculum";
@@ -43,18 +42,17 @@ const AppRouter = () => {
           element: <CommunityPage />,
         },
         {
-          path: PATH.COMMUNITY_BOARD(
-            `:communityType,:boardId`
+          path: PATH.COMMUNITY_DETAIL(
+            `:communityType`,
+            `:id`
           ),
-          element: <CommunityBoardPage />,
+          element: <CommunityDetail />,
         },
         {
-          path: PATH.COMMUNITY_MAKE_QNA(),
-          element: <RegistQna />,
-        },
-        {
-          path: PATH.COMMUNITY_MAKE_CONCERN(),
-          element: <RegistConcern />,
+          path: PATH.COMMUNITY_REGIST(
+            `:communityType`
+          ),
+          element: <Regist />,
         },
 
         // 강의 관련 Route

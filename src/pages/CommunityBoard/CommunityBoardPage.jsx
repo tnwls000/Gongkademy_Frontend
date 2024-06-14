@@ -10,9 +10,6 @@ const notices = NOTICE_LIST;
 const qnas = QNA_LIST;
 const CommunityBoardPage = () => {
   const location = useLocation();
-  console.log("Pathname:", location.pathname);
-  console.log("Notices:", notices);
-  console.log("QnAs:", qnas);
   return (
     <div>
       {location.pathname.includes("Q&A") ? (
@@ -24,14 +21,17 @@ const CommunityBoardPage = () => {
           {qnas.map((qna) => (
             <>
               <QnaCard qna={qna} key={qna.id} />
-              <hr />
+              {qna.id < qnas.length && <hr />}
             </>
           ))}
         </div>
       ) : (
         <div>
           {CONCERNS.map((concern) => (
-            <ConcernCard concern={concern} />
+            <ConcernCard
+              concern={concern}
+              key={concern.id}
+            />
           ))}
         </div>
       )}

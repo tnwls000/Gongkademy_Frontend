@@ -40,7 +40,7 @@ const Header = () => {
           <Link to={PATH.COURSES}>
             <Button text>강의</Button>
           </Link>
-          <Link to={PATH.COMMUNITY("고민")}>
+          <Link to={PATH.COMMUNITY("concern")}>
             <Button text>커뮤니티</Button>
           </Link>
         </Flex>
@@ -53,14 +53,20 @@ const Header = () => {
               <Link to={PATH.MY_PAGE}>
                 <Button fill>마이페이지</Button>
               </Link>
-              <Button text onClick={handleLogoutClick}>
+              <Button
+                text
+                onClick={handleLogoutClick}
+              >
                 로그아웃
               </Button>
             </>
           ) : (
             <>
               {" "}
-              <Button outline onClick={handleLoginBtnClick}>
+              <Button
+                outline
+                onClick={handleLoginBtnClick}
+              >
                 로그인
               </Button>
               <Link to={PATH.SIGN_UP}>

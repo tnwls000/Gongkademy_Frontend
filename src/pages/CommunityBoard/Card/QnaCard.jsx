@@ -5,27 +5,76 @@ import {
   ContentContainer,
   TitleContainer,
   InfoContainer,
+  Pointer,
 } from "./QnaCard.style.js";
 import {
   BookMark,
+  BookMarkFill,
   Like,
   LikeActive,
   Visible,
   Chat,
 } from "@assets/svg/icons";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "@router/Constants";
 const QnaCard = ({ qna }) => {
+  const navigate = useNavigate();
+  const handleClickConcernCard = () => {
+    navigate(
+      PATH.COMMUNITY_DETAIL("Q&A", initialQna.id)
+    );
+  };
+  const [initialQna, setInitialQna] =
+    useState(qna);
+  const [likeActive, setLikeActive] =
+    useState(false);
+  const handleClickLike = () => {
+    setLikeActive(!likeActive);
+    setInitialQna((prevQna) => ({
+      ...prevQna,
+      like: likeActive
+        ? prevQna.like - 1
+        : prevQna.like + 1,
+    }));
+  };
+
+  const handleClickBookMark = () => {
+    setInitialQna((prevQna) => ({
+      ...prevQna,
+      scrap: !prevQna.scrap,
+    }));
+  };
   return (
     <CardContainer>
       <TitleContainer>
-        <Title>{qna.title}</Title>
-        <BookMark width="16" height="16" />
+        <Pointer>
+          <Title onClick={handleClickConcernCard}>
+            {qna.title}
+          </Title>
+        </Pointer>
+        <Pointer>
+          {initialQna.scrap ? (
+            <BookMarkFill
+              width="16"
+              height="16"
+              onClick={handleClickBookMark}
+            />
+          ) : (
+            <BookMark
+              width="16"
+              height="16"
+              onClick={handleClickBookMark}
+            />
+          )}
+        </Pointer>
       </TitleContainer>
-      <Content>{qna.content}</Content>
+      <Content>{initialQna.content}</Content>
       <InfoContainer>
         <ContentContainer>
-          <Content>{qna.writer}</Content>
+          <Content>{initialQna.writer}</Content>
           <Content>3분전</Content>
-          <Content>{qna.course}</Content>
+          <Content>{initialQna.course}</Content>
         </ContentContainer>
         <ContentContainer>
           <Content>
@@ -33,12 +82,26 @@ const QnaCard = ({ qna }) => {
             12
           </Content>
           <Content>
-            <Like width="16" height="16" />
-            {qna.like}
+            <Pointer>
+              {likeActive ? (
+                <LikeActive
+                  width="16"
+                  height="16"
+                  onClick={handleClickLike}
+                />
+              ) : (
+                <Like
+                  width="16"
+                  height="12"
+                  onClick={handleClickLike}
+                />
+              )}
+              {initialQna.like}
+            </Pointer>
           </Content>
           <Content>
             <Visible width="16" height="16" />
-            {qna.viewCnt}
+            {initialQna.viewCnt}
           </Content>
         </ContentContainer>
       </InfoContainer>

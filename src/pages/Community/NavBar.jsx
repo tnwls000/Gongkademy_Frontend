@@ -1,5 +1,5 @@
 import { Navigate } from "./NavBar.style";
-import { Button } from "@components/common/button/Button";
+import Button from "@components/common/button/Button";
 import { PATH } from "@router/Constants";
 import {
   Link,

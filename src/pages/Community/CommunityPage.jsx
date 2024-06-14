@@ -1,6 +1,6 @@
 import SearchBar from "@components/common/searchbar/SearchBar";
 import NavBar from "@pages/Community/NavBar";
-import { Button } from "@components/common/button/Button";
+import Button from "@components/common/button/Button";
 import {
   Container,
   ContentContainer,
@@ -13,6 +13,7 @@ import { PATH } from "@router/Constants";
 import CommunityBoardPage from "../CommunityBoard/CommunityBoardPage";
 const CommunityPage = () => {
   const location = useLocation();
+  const type = location.pathname.split("/")[2];
   return (
     <Container>
       <NavBar />
@@ -20,12 +21,10 @@ const CommunityPage = () => {
         <SearchBar />
         <CommunityBoardPage />
         <Link
-          to={
-            location.pathname.split("/")[2] ===
-            "Q&A"
-              ? PATH.COMMUNITY_MAKE_QNA()
-              : PATH.COMMUNITY_MAKE_CONCERN()
-          }
+          to={PATH.COMMUNITY_REGIST(type)}
+          state={{
+            type: type,
+          }}
         >
           <Button
             fill
@@ -40,7 +39,7 @@ const CommunityPage = () => {
             }}
           >
             ✍️{" "}
-            {location.pathname.includes("Q&A")
+            {type === "Q&A"
               ? "질문하기"
               : "고민 나누기"}
           </Button>
