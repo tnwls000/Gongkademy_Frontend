@@ -47,7 +47,7 @@ export const Arrow = styled.div`
 export const Options = styled.ul`
   list-style-type: none;
   margin-top: 10px;
-  width: 6rem;
+  width: 100%;
   //   height: 48px;
   border: none;
   outline: none;
@@ -59,6 +59,7 @@ export const Options = styled.ul`
   cursor: pointer;
   display: ${(props) =>
     props.active ? "initial" : "none"};
+  z-index: 1000;
 `;
 export const Option = styled.li`
   line-height: 3rem;
