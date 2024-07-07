@@ -1,5 +1,6 @@
 import { END_POINT } from "@apis/apiConstants";
 import { axiosInstance } from "@apis/axiosInstance";
+import { PATH } from "@router/Constants";
 
 export const validateDuplicateNickname = (nickname) => {
   return axiosInstance.get(`/check-nickname?nickname=${nickname}`);
@@ -39,13 +40,16 @@ export const deleteMember = (memberId) => {
   return axiosInstance.delete(END_POINT.MEMBER(memberId));
 };
 
-export const join = (email, nickname, password, birthday) => {
-  return axiosInstance.post(END_POINT.MEMBERS, {
-    email: email,
-    nickname: nickname,
-    password: password,
-    birthday: birthday,
-  });
+export const join = async (data) => {
+  try {
+    const response = await await axiosInstance.post(END_POINT.MEMBERS, data);
+    console.log(response.status);
+    if (response.status === 201) {
+      location.href = PATH.ROOT;
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updateNickname = (memberId, newNickname) => {
