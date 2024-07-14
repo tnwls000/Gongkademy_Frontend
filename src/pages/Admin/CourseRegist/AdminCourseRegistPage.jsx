@@ -9,7 +9,7 @@ import Text from "../../../components/common/text/Text";
 import { typo } from "../../../styles/style";
 import { useState } from "react";
 import { ADMIN_PATH } from "../../../router/Constants";
-const AdminLectureRegistPage = () => {
+const AdminCourseRegistPage = () => {
   const [image, setImage] = useState();
   const [title, setTitle] = useState();
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const AdminLectureRegistPage = () => {
     try {
       const response = await createCourse({ title: title, courseImg: image });
       if (response.status === HTTP_STATUS_CODE.CREATED) {
-        navigate(ADMIN_PATH.LECTURE);
+        navigate(ADMIN_PATH.COURSE);
       }
       alert("강좌가 성공적으로 등록되었습니다.");
     } catch (error) {
@@ -41,4 +41,4 @@ const AdminLectureRegistPage = () => {
     </PageLayout>
   );
 };
-export default AdminLectureRegistPage;
+export default AdminCourseRegistPage;
