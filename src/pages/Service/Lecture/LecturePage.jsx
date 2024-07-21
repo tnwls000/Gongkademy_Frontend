@@ -2,37 +2,61 @@ import LectureHeader from "@components/lecture/lectureHeader/LectureHeader";
 import LecturePlayer from "@components/lecture/lecturePlayer/LecturePlayer";
 import LectureFooter from "@components/lecture/lectureFooter/LectureFooter";
 import { lectures } from "@dummy/lecture/lectures";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { COURSE_ID, LECTURE_ID } from "./constants";
+import { COURSE_ID, LECTURE_ID, LECUTRE_ORDER, LECUTRE_URL } from "./constants";
 import { Flex } from "../../../components/common/flex/Flex";
 import LectureSidebar from "../../../components/lecture/lectureSideBar/LectureSidebar";
 import { PageBlock } from "./LecturePage.style";
+import useLectureStore from "@stores/course/lectureStore";
+import { getPlayerLatestLecture } from "@apis/course/playerApi";
+import { HTTP_STATUS_CODE } from "@apis/apiConstants";
+import { getLecture } from "@apis/course/courseApi";
 
 const LecturePage = () => {
-  const [searchParams] = useSearchParams();
-  const [lecture, setLecture] = useState();
-  const curLecture = lectures.find((lecture) => {
-    return (
-      lecture.cid === parseInt(searchParams.get(COURSE_ID), 10) &&
-      lecture.lid === parseInt(searchParams.get(LECTURE_ID), 10)
-    );
-  });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [lecture, setLecture] = useState("");
+  const [startPoint, setStartPoint] = useState(0);
+  const fetchLecture = async () => {
+    let lid = 0;
+    console.log(searchParams.get(LECUTRE_ORDER));
+    try {
+      const response = await getLecture({
+        courseId: searchParams.get(COURSE_ID),
+        lectureOrder: searchParams.get(LECUTRE_ORDER),
+      });
 
-  //TODO: 실행이 안되는 버그 있음. API때 다시 해보자.
+      setLecture(response.data);
+      lid = response.data.lectureId;
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      const response = await getPlayerLatestLecture(lid);
+      setStartPoint(response.data.savePoint);
+    } catch (error) {
+      if (error.response.status === HTTP_STATUS_CODE.BAD_REQUEST) {
+        if (error.response.data.message === "수강강의가 존재하지 않습니다") {
+          setStartPoint(0);
+        }
+      }
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    console.log(curLecture);
-    setLecture(curLecture);
-  }, []);
+    fetchLecture();
+  }, [searchParams.get(LECUTRE_ORDER)]);
 
   return (
     <PageBlock>
       <Flex direction="column" width="100%">
-        <LectureHeader lecture={curLecture} />
-        <LecturePlayer lecture={curLecture} />
-        <LectureFooter lecture={curLecture} />
+        <LectureHeader title={lecture.title} />
+        <LecturePlayer lecture={lecture} startPoint={startPoint} />
+        <LectureFooter lecture={lecture} />
       </Flex>
-      <LectureSidebar lecture={curLecture} />
+      {/* <LectureSidebar lecture={curLecture} /> */}
     </PageBlock>
   );
 };
