@@ -35,7 +35,14 @@ const CommunityPage = () => {
         pageNo - 1
       );
     }
-  }, [type]);
+  }, [type, pageNo]);
+  const boardSearch = (keyword, criteria) => {
+    if (type === "Q&A") {
+      fetchQnaList(keyword, criteria, 0);
+    } else {
+      fetchConcernList(keyword, criteria, 0);
+    }
+  };
   return (
     <Container>
       <NavBar />
@@ -45,6 +52,9 @@ const CommunityPage = () => {
             PATH.COMMUNITY(type) +
             `?keyword=${keyword}&criteria=${criteria}&pageNo=1`
           }
+          search={boardSearch}
+          type={type}
+          setPageNo={setPageNo}
         />
         <CommunityBoardPage
           type={type}
@@ -64,6 +74,7 @@ const CommunityPage = () => {
           itemCountPerPage={10}
           pageCount={5}
           currentPage={pageNo}
+          setPageNo={setPageNo}
           type={type}
           link={
             PATH.COMMUNITY(type) +
