@@ -1,18 +1,41 @@
 import SearchBar from "@components/common/searchbar/SearchBar";
 import NavBar from "@components/community/NavBar/NavBar";
 import Pagination from "@components/common/pagination/Pagination";
-import { Container, ContentContainer } from "./CommunityPage.style";
+import {
+  Container,
+  ContentContainer,
+} from "./CommunityPage.style";
 import { useLocation } from "react-router-dom";
 import CommunityBoardPage from "@components/community/communityBoard/CommunityBoardPage";
 import { PATH } from "@router/Constants";
 import useCommonStore from "@stores/common/CommonStore";
+import { useState, useEffect } from "react";
+import useConcernStore from "@stores/Community/ConcernStore";
+import useQnaStore from "@stores/Community/QnaStore";
 const CommunityPage = () => {
   const { keyword, criteria } = useCommonStore();
   const location = useLocation();
   const type = location.pathname.split("/")[2];
-  const params = new URLSearchParams(location.search);
-  const pageNo = parseInt(params.get("pageNo"));
-  console.log(pageNo);
+  const params = new URLSearchParams(
+    location.search
+  );
+  const [pageNo, setPageNo] = useState(
+    parseInt(params.get("pageNo"))
+  );
+  const { qnaList, fetchQnaList } = useQnaStore();
+  const { concernList, fetchConcernList } =
+    useConcernStore();
+  useEffect(() => {
+    if (type === "Q&A") {
+      fetchQnaList(keyword, criteria, pageNo - 1);
+    } else {
+      fetchConcernList(
+        keyword,
+        criteria,
+        pageNo - 1
+      );
+    }
+  }, [type]);
   return (
     <Container>
       <NavBar />
@@ -23,15 +46,28 @@ const CommunityPage = () => {
             `?keyword=${keyword}&criteria=${criteria}&pageNo=1`
           }
         />
-        <CommunityBoardPage type={type} />
+        <CommunityBoardPage
+          type={type}
+          pageNo={pageNo}
+          initialBoardList={
+            type === "Q&A"
+              ? qnaList.data
+              : concernList.data
+          }
+        />
         <Pagination
-          totalItems={51}
-          itemCountPerPage={5}
+          totalItems={
+            type === "Q&A"
+              ? qnaList.totalCount
+              : concernList.totalCount
+          }
+          itemCountPerPage={10}
           pageCount={5}
           currentPage={pageNo}
           type={type}
           link={
-            PATH.COMMUNITY(type) + `?keyword=${keyword}&criteria=${criteria}`
+            PATH.COMMUNITY(type) +
+            `?keyword=${keyword}&criteria=${criteria}`
           }
         />
       </ContentContainer>
