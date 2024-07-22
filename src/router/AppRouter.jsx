@@ -39,6 +39,7 @@ import AdminCourseReviewPage from "../pages/Admin/CourseReview/AdminCourseReview
 import AdminCourseNoticePage from "../pages/Admin/CourseNotice/AdminCourseNoticePage";
 import AdminCourseRegistPage from "../pages/Admin/CourseRegist/AdminCourseRegistPage";
 import AdminCourseNavbar from "../components/admin/navbar/AdminCourseNavbar";
+import GoogleRedirectPage from "@pages/Service/GoogleRedirect/GoogleRedirectPage";
 
 const AppRouter = () => {
   const routes = [
@@ -113,6 +114,8 @@ const AppRouter = () => {
         },
       ],
     },
+
+    { path: PATH.GOOGLE_REDIRECT, element: <GoogleRedirectPage /> },
 
     //header, footer없음
     {
