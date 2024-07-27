@@ -44,7 +44,7 @@ const RegistCourse = ({
       setLectureOptions(lecturesTitle);
       console.log(
         "Fetched courses: ",
-        coursesTitle
+        lecturesTitle
       );
     } catch (error) {
       console.error(
