@@ -76,7 +76,7 @@ const SearchBar = ({
         ref={ref}
       ></StyledSearchBar>
       <Select
-        options={searchOptions}
+        options={Object.keys(searchOptions)}
         selectedValue={selected}
         setSelectedValue={setSelected}
         width={"6rem"}

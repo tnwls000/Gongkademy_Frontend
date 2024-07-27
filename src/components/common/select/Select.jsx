@@ -70,18 +70,16 @@ const Select = ({
         active={isShowOptions}
         style={{ width }}
       >
-        {Object.keys(options).map(
-          (option, index) => (
-            <Option
-              key={index}
-              onClick={() =>
-                handleOptionClick(option)
-              }
-            >
-              {option}
-            </Option>
-          )
-        )}
+        {options.map((option, index) => (
+          <Option
+            key={index}
+            onClick={() =>
+              handleOptionClick(option)
+            }
+          >
+            {option}
+          </Option>
+        ))}
       </Options>
     </StyledSelect>
   );
