@@ -15,9 +15,14 @@ export const logout = async () => {
   }
 };
 
-export const getMemberInfo = () => {
-  return axiosInstance.get(END_POINT.MEMBER);
+export const getMemberInfo = async () => {
+  return await axiosInstance.get(END_POINT.MEMBER);
 };
+
+export const checkMemberRole = (memberRole) => {
+  return axiosInstance.get(END_POINT.CHECK_MEMBER_ROLE(memberRole));
+};
+
 // 보류중
 export const validateDuplicateNickname = (nickname) => {
   return axiosInstance.get(`/check-nickname?nickname=${nickname}`);

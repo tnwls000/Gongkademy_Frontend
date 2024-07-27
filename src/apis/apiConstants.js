@@ -4,6 +4,7 @@ export const ADMIN_BASE_URL = import.meta.env.VITE_APP_ADMIN_API_URL;
 export const END_POINT = {
   MEMBER: "members",
   MEMBER_DETAIL: (memberId) => `members/${memberId}`,
+  CHECK_MEMBER_ROLE: (memberRole) => `members/role/${memberRole}`,
 
   LOGIN: "members/login",
   LOGOUT: "members/logout",
@@ -55,7 +56,7 @@ export const END_POINT = {
 };
 
 export const HTTP_STATUS_CODE = {
-  SUCCESS: 200,
+  OK: 200,
   CREATED: 201,
   NO_CONTENT: 204,
   BAD_REQUEST: 400,
