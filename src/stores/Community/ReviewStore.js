@@ -8,7 +8,11 @@ import {
 const useReviewStore = create((set, get) => ({
   //댓글 작성
   writeReview: async (comment) => {
-    await writeReview(comment);
+    await writeReview(comment).then(
+      (response) => {
+        return response.data;
+      }
+    );
   },
   //댓글 수정
   updateReview: async (commentId, comment) => {

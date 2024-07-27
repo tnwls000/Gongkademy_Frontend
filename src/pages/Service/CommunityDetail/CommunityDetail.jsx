@@ -34,6 +34,8 @@ import useQnaStore from "@stores/Community/QnaStore";
 import useNoticeStore from "@stores/Community/NoticeStore";
 import useConcernStore from "@stores/Community/ConcernStore";
 import { useLoginStore } from "@stores/member/loginStore";
+import DOMPurify from "dompurify";
+import useReviewStore from "@stores/Community/ReviewStore";
 
 const CommunityDetail = () => {
   const GOOGLE_LOGIN_URL = import.meta.env
@@ -46,28 +48,17 @@ const CommunityDetail = () => {
   const { board } = state;
   const [initialBoard, setInitialBoard] =
     useState(board);
-  const {
-    notice,
-    fetchNoticeDetail,
-    likeNotice,
-    scrapNotice,
-  } = useNoticeStore();
-  const {
-    concern,
-    fetchConcernDetail,
-    likeConcern,
-    scrapConcern,
-  } = useConcernStore();
-  const {
-    qna,
-    fetchQnaDetail,
-    likeQna,
-    scrapQna,
-  } = useQnaStore();
-
+  const { likeNotice, scrapNotice } =
+    useNoticeStore();
+  const { likeConcern, scrapConcern } =
+    useConcernStore();
+  const { likeQna, scrapQna } = useQnaStore();
+  const sanitizedHtml = DOMPurify.sanitize(
+    initialBoard.content
+  );
   const [viewReview, setViewReview] =
     useState(false);
-  const [writeReview, setWriteReview] =
+  const [isWriteReview, setIsWriteReview] =
     useState(false);
   const [isMeetballClick, setIsMeetballClick] =
     useState(false);
@@ -116,7 +107,7 @@ const CommunityDetail = () => {
   };
   const handleClickGoWriteReview = () => {
     if (isLogin) {
-      setWriteReview(!writeReview);
+      setIsWriteReview(!isWriteReview);
     } else {
       window.location.href = GOOGLE_LOGIN_URL;
     }
@@ -124,6 +115,19 @@ const CommunityDetail = () => {
   const handleClickMeetball = () => {
     console.log(isMeetballClick);
     setIsMeetballClick(!isMeetballClick);
+  };
+  const [reviewContent, setReviewContent] =
+    useState("");
+  const { writeReview } = useReviewStore();
+  const registReview = () => {
+    const review = {
+      articleId: initialBoard.articleId,
+      memberId: 1,
+      content: reviewContent,
+      parentId: null,
+    };
+    console.log(review);
+    writeReview(review);
   };
   return (
     <DetailBlock>
@@ -201,9 +205,12 @@ const CommunityDetail = () => {
             {initialBoard.createTime} 작성
           </Content>
           <ContentContainer>
-            <Content type="black">
-              {initialBoard.content}
-            </Content>
+            <Content
+              type="black"
+              dangerouslySetInnerHTML={{
+                __html: sanitizedHtml,
+              }}
+            ></Content>
             {type === "qna" && (
               <ContainerRow type="center">
                 <QnaImg />
@@ -248,14 +255,15 @@ const CommunityDetail = () => {
               </Button>
             </ContainerRow>
           </ContentContainer>
-          {writeReview && <RegistReview />}
+          {isWriteReview && (
+            <RegistReview
+              onClick={registReview}
+              setContent={setReviewContent}
+            />
+          )}
           {viewReview &&
             initialBoard.comments.map(
-              (review) => (
-                <Review
-                  content={review.content}
-                />
-              )
+              (review) => <Review />
             )}
         </Container>
       )}
