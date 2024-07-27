@@ -54,7 +54,7 @@ export const ContentContainer = styled.div`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 `;
-export const Content = styled.pre`
+export const Content = styled.div`
   ${({ type, theme }) =>
     type === "black"
       ? theme.typo.bodyRg400
