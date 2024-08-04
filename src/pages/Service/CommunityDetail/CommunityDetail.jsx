@@ -1,4 +1,7 @@
-import { useLocation } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import {
   BookMarkIcon,
   LikeIcon,
@@ -36,10 +39,13 @@ import useConcernStore from "@stores/Community/ConcernStore";
 import { useLoginStore } from "@stores/member/loginStore";
 import DOMPurify from "dompurify";
 import useReviewStore from "@stores/Community/ReviewStore";
+import { formattedDate } from "@components/community/Card/formatDate";
+import { useMemeberStore } from "@stores/member/memberStore";
 
 const CommunityDetail = () => {
   const GOOGLE_LOGIN_URL = import.meta.env
     .VITE_GOOGLE_LOGIN_URL;
+  const { member } = useMemeberStore();
   const { isLogin } = useLoginStore();
   const location = useLocation();
   const { state } = useLocation();
@@ -48,11 +54,20 @@ const CommunityDetail = () => {
   const { board } = state;
   const [initialBoard, setInitialBoard] =
     useState(board);
-  const { likeNotice, scrapNotice } =
-    useNoticeStore();
-  const { likeConcern, scrapConcern } =
-    useConcernStore();
-  const { likeQna, scrapQna } = useQnaStore();
+  console.log(initialBoard);
+  const navigate = useNavigate();
+  const {
+    likeNotice,
+    scrapNotice,
+    deleteNotice,
+  } = useNoticeStore();
+  const {
+    likeConcern,
+    scrapConcern,
+    deleteConcern,
+  } = useConcernStore();
+  const { likeQna, scrapQna, deleteQna } =
+    useQnaStore();
   const sanitizedHtml = DOMPurify.sanitize(
     initialBoard.content
   );
@@ -69,7 +84,7 @@ const CommunityDetail = () => {
     if (isLogin) {
       if (type === "notice") {
         likeNotice(initialBoard.articleId);
-      } else if (type === "qna") {
+      } else if (type === "Q&A") {
         likeQna(initialBoard.articleId);
       } else {
         likeConcern(initialBoard.articleId);
@@ -112,6 +127,20 @@ const CommunityDetail = () => {
       window.location.href = GOOGLE_LOGIN_URL;
     }
   };
+  const handleClickDelete = async (articleId) => {
+    if (type === "notice") {
+      deleteNotice(articleId);
+    } else if (type === "qna") {
+      deleteQna(articleId);
+    } else {
+      deleteConcern(articleId);
+    }
+    navigate(
+      PATH.COMMUNITY(
+        type === "Q&A" ? "Q&A" : "concern"
+      ) + `?keyword=&criteria=&pageNo=1`
+    );
+  };
   const handleClickMeetball = () => {
     console.log(isMeetballClick);
     setIsMeetballClick(!isMeetballClick);
@@ -126,6 +155,8 @@ const CommunityDetail = () => {
       content: reviewContent,
       parentId: null,
     };
+    setReviewContent("");
+    setIsWriteReview(false);
     console.log(review);
     writeReview(review);
   };
@@ -175,24 +206,33 @@ const CommunityDetail = () => {
                   {initialBoard.likeCount}
                 </Content>
               </ContainerCol>
-              <ContainerCol
-                type="icon"
-                style={{ position: "relative" }}
-              >
-                <MeetballIcon
-                  width="16"
-                  height="16"
-                  onClick={handleClickMeetball}
-                />
-                <br />
-                {isMeetballClick && (
-                  <MeetballSelect
-                    path={PATH.COMMUNITY_UPDATE(
-                      initialBoard.ariticleId
-                    )}
+              {initialBoard.memberId ===
+                member.memberId && (
+                <ContainerCol
+                  type="icon"
+                  style={{ position: "relative" }}
+                >
+                  <MeetballIcon
+                    width="16"
+                    height="16"
+                    onClick={handleClickMeetball}
                   />
-                )}
-              </ContainerCol>
+                  <br />
+                  {isMeetballClick && (
+                    <MeetballSelect
+                      path={PATH.COMMUNITY_UPDATE(
+                        type,
+                        initialBoard.articleId
+                      )}
+                      handleClickDelete={() =>
+                        handleClickDelete(
+                          initialBoard.articleId
+                        )
+                      }
+                    />
+                  )}
+                </ContainerCol>
+              )}
             </ContainerRow>
           </TitleContainer>
           <ContainerRow type="center">
@@ -202,7 +242,10 @@ const CommunityDetail = () => {
             </Content>
           </ContainerRow>
           <Content>
-            {initialBoard.createTime} 작성
+            {formattedDate(
+              initialBoard.createTime
+            )}{" "}
+            작성
           </Content>
           <ContentContainer>
             <Content
@@ -263,7 +306,9 @@ const CommunityDetail = () => {
           )}
           {viewReview &&
             initialBoard.comments.map(
-              (review) => <Review />
+              (review) => (
+                <Review content={review} />
+              )
             )}
         </Container>
       )}
