@@ -9,9 +9,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const MyCoursePage = () => {
-  const [courseArr, setCourseArr] = useState([]);
+  const [nocompletedCourseArr, setNocompletedCourseArr] = useState([]);
+  const [completedCourseArr, setCompletedCourseArr] = useState([]);
 
-  const fetchUserData = async () => {
+  const fetchnoncompletedCourseData = async () => {
     try {
       const response = await axios.get(
         "http://localhost:8080/course/nocomplete",
@@ -23,14 +24,36 @@ const MyCoursePage = () => {
         }
       );
       console.log(response);
+      setNocompletedCourseArr(response.data);
+      console.log(nocompletedCourseArr);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  const fetchcompletedCourseData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/course/complete",
+        {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      console.log(response);
       setCourseArr(response.data);
-      console.log(courseArr);
+      console.log(completedCourseArr);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
   useEffect(() => {
-    fetchUserData();
+    fetchnoncompletedCourseData();
+  }, []);
+  useEffect(() => {
+    fetchcompletedCourseData();
   }, []);
 
   const [myProcessingCourseBtn, setMyProcessingCourseBtn] = useState(true);
@@ -57,12 +80,21 @@ const MyCoursePage = () => {
           </SelectedCourseTitle>
         </Flex>
       </Flex>
-
-      <MyCourseGrid>
-        {courseArr.map((course) => {
-          return <MyCourseCard courseName={course.title} />;
-        })}
-      </MyCourseGrid>
+      {myProcessingCourseBtn ? (
+        <MyCourseGrid>
+          {nocompletedCourseArr.map((course) => {
+            return <MyCourseCard courseName={course.title} />;
+          })}
+        </MyCourseGrid>
+      ) : completedCourseArr.length === 0 ? (
+        <p>"아직 수강 완료한 강좌가 없습니다. 분발하세요!"</p>
+      ) : (
+        <MyCourseGrid>
+          {completedCourseArr.map((course) => {
+            return <MyCourseCard courseName={course.title} />;
+          })}
+        </MyCourseGrid>
+      )}
     </>
   );
 };
