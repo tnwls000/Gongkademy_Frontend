@@ -5,20 +5,36 @@ import {
   MyCourseGrid,
   TitleFlex,
 } from "./MyCoursePage.style";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const MyCoursePage = () => {
-  const courseArr = [
-    { title: "강의1" },
-    { title: "강의2" },
-    { title: "강의3" },
-    { title: "강의4" },
-    { title: "강의5" },
-  ];
+  const [courseArr, setCourseArr] = useState([]);
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/course/nocomplete",
+        {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      console.log(response);
+      setCourseArr(response.data);
+      console.log(courseArr);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   const [myProcessingCourseBtn, setMyProcessingCourseBtn] = useState(true);
 
-  console.log(myProcessingCourseBtn);
   return (
     <>
       <Flex width="100%" justify="start">
