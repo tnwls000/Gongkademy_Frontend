@@ -17,16 +17,13 @@ import QnaEditor from "@components/community/Regist/QnaEditor";
 import useQnaStore from "@stores/Community/QnaStore";
 import useConcernStore from "@stores/Community/ConcernStore";
 import { PATH } from "@router/Constants";
-import Modal from "react-modal";
-import Alarm from "@components/common/modal/Alarm/Alarm";
 import ConcernEditor from "@components/community/Regist/ConcernEditor";
+import ConfirmModal from "@components/common/modal/confirmModal/ConfirmModal";
+import { useMemeberStore } from "@stores/member/memberStore";
 
 const CommunityRegistPage = () => {
-  const [isModalOpen, SetIsModalOpen] =
-    useState(false);
-  const closeModal = () => {
-    SetIsModalOpen(false);
-  };
+  const { member } = useMemeberStore();
+  const [isOpen, setIsOpen] = useState(false);
   const { writeConcern } = useConcernStore();
   const { writeQna } = useQnaStore();
   const location = useLocation();
@@ -55,24 +52,23 @@ const CommunityRegistPage = () => {
     setContent(
       editorRef.current.getEditor().root.innerHTML
     );
-    SetIsModalOpen(true);
+    setIsOpen(true);
   };
   const handleClickButton = () => {
     if (selected === "🙋Q&A") {
       const board = {
         boardType: "QNA",
-        memberId: "1",
+        memberId: member.memberId,
         title: title,
         content: content,
         lectureTitle: selectedLecture,
         courseTitle: selectedCourse,
       };
-      console.log(board);
       writeQna(board);
     } else {
       const board = {
         boardType: "CONSULT",
-        memberId: 1,
+        memberId: member.memberId,
         title: title,
         content: content,
       };
@@ -91,6 +87,21 @@ const CommunityRegistPage = () => {
   return (
     <>
       <Container>
+        <ConfirmModal
+          isOpen={isOpen}
+          title="게시글을 등록하시겠습니까?"
+          messages={[
+            "커뮤니티 페이지로 이동합니다.",
+          ]}
+          close={{
+            text: "취소",
+            onClick: () => SetIsOpen(false),
+          }}
+          confirm={{
+            text: "확인",
+            onClick: handleClickButton,
+          }}
+        />
         <RegistNav
           selected={selected}
           setSelected={setSelected}
@@ -129,34 +140,6 @@ const CommunityRegistPage = () => {
           />
         )}
       </Container>
-      <Modal
-        isOpen={isModalOpen}
-        ariaHideApp={false}
-        onRequestClose={closeModal}
-        style={{
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.4)",
-            zIndex: 10,
-          },
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-          },
-        }}
-      >
-        <Alarm
-          title="글을 등록하시겠습니까?"
-          content={
-            "커뮤니티 페이지로 이동합니다."
-          }
-          onClickOk={handleClickButton}
-          onClickNo={closeModal}
-        />
-      </Modal>
     </>
   );
 };
