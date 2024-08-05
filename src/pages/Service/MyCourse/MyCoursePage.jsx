@@ -25,6 +25,7 @@ const MyCoursePage = () => {
         }
       );
       setNocompletedCourseArr(response.data);
+      console.log("수강중인강좌", nocompletedCourseArr);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -118,7 +119,13 @@ const MyCoursePage = () => {
       {myProcessingCourseBtn ? (
         <MyCourseGrid>
           {nocompletedCourseArr.map((course) => {
-            return <MyCourseCard courseName={course.title} />;
+            return (
+              <MyCourseCard
+                key={course.courseId}
+                courseName={course.title}
+                courseImgAddress={course.courseImgAddress}
+              />
+            ); //수강률. totalCourseTime은 강의의 시간일까 수강한 시간일까
           })}
         </MyCourseGrid>
       ) : completedCourseArr.length === 0 ? (

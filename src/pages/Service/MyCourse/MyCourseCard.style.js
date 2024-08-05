@@ -5,7 +5,9 @@ export const MyCourseCardImage = styled.div`
   width: 296px;
   height: 224px;
   border-radius: 16px;
-  background-color: ${color.gray200};
+  background-image: url(${(props) => props.$courseimg});
+  background-size: cover;
+  background-position: center;
 `;
 
 export const TotalCourseProcess = styled.div`

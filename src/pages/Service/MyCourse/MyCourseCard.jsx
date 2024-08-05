@@ -9,10 +9,10 @@ import {
 } from "./MyCourseCard.style";
 import { color, typo } from "@styles/style";
 
-const MyCourseCard = ({ courseName }) => {
+const MyCourseCard = ({ courseName, courseImgAddress }) => {
   return (
     <MyCourseContainer>
-      <MyCourseCardImage />
+      <MyCourseCardImage $courseimg={courseImgAddress} />
       <MyCourseName>{courseName}</MyCourseName>
       <MyCourseProcessContainer>
         <TotalCourseProcess>
