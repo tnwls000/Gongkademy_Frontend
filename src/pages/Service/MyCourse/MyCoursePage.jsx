@@ -11,7 +11,8 @@ import axios from "axios";
 const MyCoursePage = () => {
   const [nocompletedCourseArr, setNocompletedCourseArr] = useState([]);
   const [completedCourseArr, setCompletedCourseArr] = useState([]);
-
+  const [totalCourseIdArr, setTotalCourseIdArr] = useState([]);
+  //수강 중인 강의 API get
   const fetchnoncompletedCourseData = async () => {
     try {
       const response = await axios.get(
@@ -23,14 +24,12 @@ const MyCoursePage = () => {
           },
         }
       );
-      console.log(response);
       setNocompletedCourseArr(response.data);
-      console.log(nocompletedCourseArr);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
-
+  //완료한 강의 API get
   const fetchcompletedCourseData = async () => {
     try {
       const response = await axios.get(
@@ -42,19 +41,55 @@ const MyCoursePage = () => {
           },
         }
       );
-      console.log(response);
-      setCourseArr(response.data);
-      console.log(completedCourseArr);
+
+      setCompletedCourseArr(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
+  //전체 강좌 목록 조회 API get
+  const getTotalCourseList = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/course", {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      const courseArr = response.data;
+      // setTotalCourseIdArr(courseArr.map((course) => course.courseId)); id만 가져오기
+      setTotalCourseIdArr(courseArr);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  // effect: 컴포넌트 마운트 시 데이터를 로드
   useEffect(() => {
-    fetchnoncompletedCourseData();
+    const fetchData = async () => {
+      await fetchnoncompletedCourseData();
+      await fetchcompletedCourseData();
+      await getTotalCourseList();
+    };
+
+    fetchData();
   }, []);
+
+  // effect: totalCourseIdArr가 변경될 때 불필요한 강좌 삭제
   useEffect(() => {
-    fetchcompletedCourseData();
-  }, []);
+    const totalCourseIds = totalCourseIdArr.map((course) => course.courseId);
+
+    const filterInvalidCourses = (courseArr) => {
+      return courseArr.filter((course) =>
+        totalCourseIds.includes(course.courseId)
+      );
+    };
+
+    setCompletedCourseArr(filterInvalidCourses(completedCourseArr));
+    setNocompletedCourseArr(filterInvalidCourses(nocompletedCourseArr));
+
+    console.log(totalCourseIdArr); // 상태가 변경될 때 최신 totalCourseIdArr 출력
+  }, [totalCourseIdArr]);
 
   const [myProcessingCourseBtn, setMyProcessingCourseBtn] = useState(true);
 
