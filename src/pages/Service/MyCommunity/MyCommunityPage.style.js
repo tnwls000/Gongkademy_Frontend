@@ -15,3 +15,11 @@ export const SelectedPostBtn = styled.p`
       background-color: ${color.gray800};
     `}
 `;
+
+export const DropDownButton = styled.ul`
+  padding: 16px 12px;
+  font: ${typo.bodyRg700};
+  color: ${color.gray600};
+  background-color: ${color.gray100};
+  border-radius: 8px;
+`;

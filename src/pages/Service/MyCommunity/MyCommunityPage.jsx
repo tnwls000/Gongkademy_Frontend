@@ -1,8 +1,19 @@
 import { useState } from "react";
-import { SelectedPostBtn } from "./MyCommunityPage.style";
+import { SelectedPostBtn, DropDownButton } from "./MyCommunityPage.style";
 import { Flex } from "@components/common/flex/Flex";
 
+const Dropdown = () => {
+  return (
+    <>
+      <li>Q&A</li>
+      <li>고민</li>
+    </>
+  );
+};
+
 const MyCommunityPage = () => {
+  const [dropDown, setDropDown] = useState(false);
+
   const [myPostBtn, setMyPostBtn] = useState(true);
   const [listPostBtn, setListPostBtn] = useState(false);
   const [scrapPostBtn, setScrapPostBtn] = useState(false);
@@ -43,6 +54,16 @@ const MyCommunityPage = () => {
           </SelectedPostBtn>
         </Flex>
       </Flex>
+      {/* 드롭다운 */}
+      <DropDownButton
+        onClick={() => {
+          setDropDown(!dropDown);
+        }}
+      >
+        Q&A
+        {dropDown ? "⌃" : "⌄"}
+        {dropDown && <Dropdown />}
+      </DropDownButton>
     </>
   );
 };
