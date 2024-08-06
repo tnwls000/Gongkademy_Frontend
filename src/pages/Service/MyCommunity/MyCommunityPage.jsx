@@ -1,12 +1,23 @@
 import { useState } from "react";
-import { SelectedPostBtn, DropDownButton } from "./MyCommunityPage.style";
+import {
+  SelectedPostBtn,
+  DropDownButton,
+  DropDownLi,
+  DropDownFlex,
+} from "./MyCommunityPage.style";
 import { Flex } from "@components/common/flex/Flex";
 
-const Dropdown = () => {
+const Dropdown = ({ handleDropChange }) => {
+  const handleClick = () => {
+    handleDropChange();
+  };
+
   return (
     <>
-      <li>Q&A</li>
-      <li>고민</li>
+      <DropDownFlex>
+        <DropDownLi onClick={handleClick}>Q&A</DropDownLi>
+        <DropDownLi onClick={handleClick}>고민</DropDownLi>
+      </DropDownFlex>
     </>
   );
 };
@@ -18,9 +29,15 @@ const MyCommunityPage = () => {
   const [listPostBtn, setListPostBtn] = useState(false);
   const [scrapPostBtn, setScrapPostBtn] = useState(false);
 
+  const [dropDownQnA, setDropDownQnA] = useState(true);
+
+  const handleChangeDropDown = () => {
+    setDropDownQnA(!dropDownQnA);
+  };
+
   return (
     <>
-      <Flex width="100%" justify="start">
+      <Flex width="100%" justify="space-between">
         <Flex gap="16px">
           <SelectedPostBtn
             onClick={() => {
@@ -53,17 +70,51 @@ const MyCommunityPage = () => {
             스크랩한 게시글
           </SelectedPostBtn>
         </Flex>
+
+        {/* 드롭다운 */}
+        <DropDownButton
+          onClick={() => {
+            setDropDown(!dropDown);
+          }}
+        >
+          <Flex justify="space-evenly" align="center">
+            {dropDownQnA ? "Q&A" : "고민"}
+
+            {dropDown ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="none"
+              >
+                <path stroke="#111113" d="M14 11 8 5l-6 6" />
+                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
+                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
+                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
+                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
+                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
+                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="none"
+              >
+                <path stroke="#111113" d="m2 5 6 6 6-6" />
+                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
+                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
+                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
+                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
+                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
+                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
+              </svg>
+            )}
+          </Flex>
+          {dropDown && <Dropdown handleDropChange={handleChangeDropDown} />}
+        </DropDownButton>
       </Flex>
-      {/* 드롭다운 */}
-      <DropDownButton
-        onClick={() => {
-          setDropDown(!dropDown);
-        }}
-      >
-        Q&A
-        {dropDown ? "⌃" : "⌄"}
-        {dropDown && <Dropdown />}
-      </DropDownButton>
     </>
   );
 };
