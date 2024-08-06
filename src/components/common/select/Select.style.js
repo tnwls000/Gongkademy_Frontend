@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
-
+import { color } from "@styles/style";
 export const StyledSelect = styled.div`
   width: ${(props) => props.width || "100%"};
   border: none;
   outline: none;
-  background-color: ${({ theme }) => theme.color.gray100};
+  background-color: ${color.gray100};
   border-radius: 0.5rem;
 `;
 export const Selected = styled.div`
@@ -20,13 +20,15 @@ export const SelectedValue = styled.div`
   overflow: hidden;
 `;
 
-export const Options = styled.ul`
+export const Options = styled.ul.withConfig({
+  shouldForwardProp: (prop) => prop !== "active",
+})`
   list-style-type: none;
   margin-top: 0.625rem;
   width: 100%;
   border: none;
   outline: none;
-  background-color: ${({ theme }) => theme.color.gray100};
+  background-color: ${color.gray100};
   border-radius: 0.5rem;
   position: absolute;
   cursor: pointer;
@@ -38,7 +40,7 @@ export const Option = styled.li`
   width: 100%;
   padding: 0rem 1rem;
   &:hover {
-    background-color: ${({ theme }) => theme.color.gray200};
+    background-color: ${color.gray200};
   }
   border-radius: 0.5rem;
 `;
