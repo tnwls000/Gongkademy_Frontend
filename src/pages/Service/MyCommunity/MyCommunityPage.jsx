@@ -5,28 +5,10 @@ import {
   DropDownLi,
   DropDownFlex,
   PostGrid,
+  TopBtnBox,
 } from "./MyCommunityPage.style";
 import { Flex } from "@components/common/flex/Flex";
 import MyPostCard from "./MyPostCard";
-
-const Dropdown = ({ handleClickQnA, handleClickQuestion }) => {
-  const handleClickQnABtn = () => {
-    handleClickQnA();
-  };
-
-  const handleClickQuestionBtn = () => {
-    handleClickQuestion();
-  };
-
-  return (
-    <>
-      <DropDownFlex>
-        <DropDownLi onClick={handleClickQnABtn}>Q&A</DropDownLi>
-        <DropDownLi onClick={handleClickQuestionBtn}>고민</DropDownLi>
-      </DropDownFlex>
-    </>
-  );
-};
 
 const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -36,18 +18,10 @@ const MyCommunityPage = () => {
   const [scrapPostBtn, setScrapPostBtn] = useState(false);
 
   const [dropDownQnA, setDropDownQnA] = useState(true);
-  console.log(dropDown);
-
-  const handleClickQnA = () => {
-    setDropDownQnA(true);
-  };
-  const handleClickQuestion = () => {
-    setDropDownQnA(false);
-  };
 
   return (
     <>
-      <Flex width="100%" justify="space-between">
+      <TopBtnBox>
         <Flex gap="16px">
           <SelectedPostBtn
             onClick={() => {
@@ -123,13 +97,25 @@ const MyCommunityPage = () => {
             )}
           </Flex>
           {dropDown && (
-            <Dropdown
-              handleClickQnA={handleClickQnA}
-              handleClickQuestion={handleClickQuestion}
-            />
+            <DropDownFlex>
+              <DropDownLi
+                onClick={() => {
+                  setDropDownQnA(true);
+                }}
+              >
+                Q&A
+              </DropDownLi>
+              <DropDownLi
+                onClick={() => {
+                  setDropDownQnA(false);
+                }}
+              >
+                고민
+              </DropDownLi>
+            </DropDownFlex>
           )}
         </DropDownButton>
-      </Flex>
+      </TopBtnBox>
       <PostGrid>
         <MyPostCard />
         <MyPostCard />

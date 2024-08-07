@@ -1,6 +1,14 @@
 import { color, typo } from "@styles/style";
 import styled, { css } from "styled-components";
 
+export const TopBtnBox = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 64px;
+  align-items: center;
+`;
+
 export const SelectedPostBtn = styled.p`
   font: ${typo.bodyRg400};
   color: ${color.gray800};
