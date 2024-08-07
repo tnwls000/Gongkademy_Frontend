@@ -7,16 +7,20 @@ import {
 } from "./MyCommunityPage.style";
 import { Flex } from "@components/common/flex/Flex";
 
-const Dropdown = ({ handleDropChange }) => {
-  const handleClick = () => {
-    handleDropChange();
+const Dropdown = ({ handleClickQnA, handleClickQuestion }) => {
+  const handleClickQnABtn = () => {
+    handleClickQnA();
+  };
+
+  const handleClickQuestionBtn = () => {
+    handleClickQuestion();
   };
 
   return (
     <>
       <DropDownFlex>
-        <DropDownLi onClick={handleClick}>Q&A</DropDownLi>
-        <DropDownLi onClick={handleClick}>고민</DropDownLi>
+        <DropDownLi onClick={handleClickQnABtn}>Q&A</DropDownLi>
+        <DropDownLi onClick={handleClickQuestionBtn}>고민</DropDownLi>
       </DropDownFlex>
     </>
   );
@@ -30,9 +34,13 @@ const MyCommunityPage = () => {
   const [scrapPostBtn, setScrapPostBtn] = useState(false);
 
   const [dropDownQnA, setDropDownQnA] = useState(true);
+  console.log(dropDown);
 
-  const handleChangeDropDown = () => {
-    setDropDownQnA(!dropDownQnA);
+  const handleClickQnA = () => {
+    setDropDownQnA(true);
+  };
+  const handleClickQuestion = () => {
+    setDropDownQnA(false);
   };
 
   return (
@@ -112,7 +120,12 @@ const MyCommunityPage = () => {
               </svg>
             )}
           </Flex>
-          {dropDown && <Dropdown handleDropChange={handleChangeDropDown} />}
+          {dropDown && (
+            <Dropdown
+              handleClickQnA={handleClickQnA}
+              handleClickQuestion={handleClickQuestion}
+            />
+          )}
         </DropDownButton>
       </Flex>
     </>
