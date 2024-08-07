@@ -44,3 +44,9 @@ export const DropDownFlex = styled.div`
   align-items: center;
   border-radius: 8px;
 `;
+
+export const PostGrid = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;

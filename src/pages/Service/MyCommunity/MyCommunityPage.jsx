@@ -4,8 +4,10 @@ import {
   DropDownButton,
   DropDownLi,
   DropDownFlex,
+  PostGrid,
 } from "./MyCommunityPage.style";
 import { Flex } from "@components/common/flex/Flex";
+import MyPostCard from "./MyPostCard";
 
 const Dropdown = ({ handleClickQnA, handleClickQuestion }) => {
   const handleClickQnABtn = () => {
@@ -128,6 +130,11 @@ const MyCommunityPage = () => {
           )}
         </DropDownButton>
       </Flex>
+      <PostGrid>
+        <MyPostCard />
+        <MyPostCard />
+        <MyPostCard />
+      </PostGrid>
     </>
   );
 };
