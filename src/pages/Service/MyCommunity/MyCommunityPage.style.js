@@ -50,7 +50,8 @@ export const DropDownFlex = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 `;
 
 export const PostGrid = styled.div`

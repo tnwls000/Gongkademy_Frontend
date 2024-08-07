@@ -9,6 +9,7 @@ import {
 } from "./MyCommunityPage.style";
 import { Flex } from "@components/common/flex/Flex";
 import MyPostCard from "./MyPostCard";
+import MyCommunityPagination from "./MyCommunityPagination";
 
 const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -120,7 +121,9 @@ const MyCommunityPage = () => {
         <MyPostCard />
         <MyPostCard />
         <MyPostCard />
+        <MyPostCard />
       </PostGrid>
+      <MyCommunityPagination />
     </>
   );
 };
