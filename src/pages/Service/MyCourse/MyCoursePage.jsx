@@ -128,7 +128,7 @@ const MyCoursePage = () => {
             ); //수강률. totalCourseTime은 강의의 시간일까 수강한 시간일까
           })}
         </MyCourseGrid>
-      ) : completedCourseArr.length === 0 ? (
+      ) : !completedCourseArr.length ? (
         <p>"아직 수강 완료한 강좌가 없습니다. 분발하세요!"</p>
       ) : (
         <MyCourseGrid>
