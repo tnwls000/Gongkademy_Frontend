@@ -11,7 +11,7 @@ import { Flex } from "@components/common/flex/Flex";
 import MyPostCard from "./MyPostCard";
 import MyCommunityPagination from "./MyCommunityPagination";
 import axios from "axios";
-import { DropUp, DropDown } from "@assets/svg/icons";
+import { DropUpIcon, DropDownIcon } from "@assets/svg/icons";
 
 const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -21,6 +21,9 @@ const MyCommunityPage = () => {
 
   const [myQnAArrPage, setMyQnAArrPage] = useState([]);
   const [myQnAArr, setMyQnAArr] = useState([]);
+
+  const [myConsultingArrPage, setMyConsultingArrPage] = useState([]);
+  const [myConsultingArr, setMyConsultingArr] = useState([]);
 
   //myQnA API get
   const fetchMyQnAData = async () => {
@@ -34,10 +37,27 @@ const MyCommunityPage = () => {
           },
         }
       );
-
       setMyQnAArrPage(response.data);
-
       setMyQnAArr(response.data.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  //myConsulting API get
+  const fetchMyConsultingData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/community/consulting/myboard",
+        {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      setMyConsultingArrPage(response.data);
+      setMyConsultingArr(response.data.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -46,6 +66,7 @@ const MyCommunityPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       await fetchMyQnAData();
+      await fetchMyConsultingData();
     };
 
     fetchData();
@@ -91,9 +112,9 @@ const MyCommunityPage = () => {
             {dropDownQnA ? "Q&A" : "고민"}
 
             {dropDown ? (
-              <DropUp width="16" height="16" />
+              <DropUpIcon width="16" height="16" />
             ) : (
-              <DropDown width="16" height="16" />
+              <DropDownIcon width="16" height="16" />
             )}
           </Flex>
           {dropDown && (
@@ -116,13 +137,37 @@ const MyCommunityPage = () => {
           )}
         </DropDownButton>
       </TopBtnBox>
-      {/* 내 고민글 */}
+      {/* 내 QnA 글 */}
       {postType === "myPost" && dropDownQnA == true && (
         <PostGrid
           totalPage={myQnAArrPage.totalPage}
           totalCount={myQnAArrPage.totalCount}
         >
           {myQnAArr.map((item) => {
+            return (
+              <MyPostCard
+                key={item.articleId}
+                title={item.title}
+                content={item.content}
+                nickName={item.nickname}
+                createTime={item.createTime}
+                courseTitle={item.courseTitle}
+                commentCount={item.commentCount}
+                likeCount={item.likeCount}
+                //조회수는 없고 스크랩수는 있음
+                // scrapCount={item.scrapCount}
+              />
+            );
+          })}
+        </PostGrid>
+      )}
+      {/* 내 고민글 */}
+      {postType === "myPost" && dropDownQnA == false && (
+        <PostGrid
+          totalPage={myConsultingArrPage.totalPage}
+          totalCount={myConsultingArrPage.totalCount}
+        >
+          {myConsultingArr.map((item) => {
             return (
               <MyPostCard
                 key={item.articleId}
