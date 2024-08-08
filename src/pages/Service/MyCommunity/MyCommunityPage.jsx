@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   SelectedPostBtn,
   DropDownButton,
@@ -10,15 +10,67 @@ import {
 import { Flex } from "@components/common/flex/Flex";
 import MyPostCard from "./MyPostCard";
 import MyCommunityPagination from "./MyCommunityPagination";
+import axios from "axios";
 
 const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
-
-  const [myPostBtn, setMyPostBtn] = useState(true);
-  const [listPostBtn, setListPostBtn] = useState(false);
-  const [scrapPostBtn, setScrapPostBtn] = useState(false);
-
   const [dropDownQnA, setDropDownQnA] = useState(true);
+
+  // const [myPostBtn, setMyPostBtn] = useState(true);
+  // const [listPostBtn, setListPostBtn] = useState(false);
+  // const [scrapPostBtn, setScrapPostBtn] = useState(false);
+  const [postType, setPostType] = useState("myPost");
+
+  const [myPostArr, setMyPostArr] = useState([]);
+  const [myQnAArr, setMyQnAArr] = useState([]);
+  //내 고민 api 불러오기
+  const fetchMyPostData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/community/consulting",
+        // 여기서는 8080이 안 되고 3000으로 해야 됨
+        {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      console.log(response); //데이터가 안 불러와지는데... post가 안 된 거 아닐까...
+      setMyPostArr(response.data);
+      console.log("내 게시글", myPostArr);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  //QnA API get
+  const fetchMyQnAData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/coucommunity/question",
+        {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      setMyQnAArr(response.data);
+      console.log("QnA 불러오기", myQnAArr);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchMyPostData();
+      await fetchMyQnAData();
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -26,31 +78,25 @@ const MyCommunityPage = () => {
         <Flex gap="16px">
           <SelectedPostBtn
             onClick={() => {
-              setMyPostBtn(true);
-              setListPostBtn(false);
-              setScrapPostBtn(false);
+              setPostType("myPost");
             }}
-            selected={myPostBtn}
+            selected={postType === "myPost"}
           >
             내가 쓴 게시글
           </SelectedPostBtn>
           <SelectedPostBtn
             onClick={() => {
-              setMyPostBtn(false);
-              setListPostBtn(true);
-              setScrapPostBtn(false);
+              setPostType("likePost");
             }}
-            selected={listPostBtn}
+            selected={postType === "likePost"}
           >
             좋아요 누른 게시글
           </SelectedPostBtn>
           <SelectedPostBtn
             onClick={() => {
-              setMyPostBtn(false);
-              setListPostBtn(false);
-              setScrapPostBtn(true);
+              setPostType("scrapPost");
             }}
-            selected={scrapPostBtn}
+            selected={postType === "scrapPost"}
           >
             스크랩한 게시글
           </SelectedPostBtn>
@@ -117,6 +163,7 @@ const MyCommunityPage = () => {
           )}
         </DropDownButton>
       </TopBtnBox>
+
       <PostGrid>
         <MyPostCard />
         <MyPostCard />

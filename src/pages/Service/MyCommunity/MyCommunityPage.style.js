@@ -43,6 +43,11 @@ export const DropDownLi = styled.li`
   color: ${color.gray600};
   background-color: ${color.gray100};
   padding: 12px 16px;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: ${color.gray200};
+  }
 `;
 
 export const DropDownFlex = styled.div`
@@ -52,6 +57,7 @@ export const DropDownFlex = styled.div`
   align-items: center;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  margin-top: 16px;
 `;
 
 export const PostGrid = styled.div`
