@@ -23,7 +23,21 @@ const CourseCurriculum = () => {
   return (
     <div>
       {lectures.map((lecture) => (
-        <CurriculumItem lecture={lecture} type={"user"} />
+        // <CurriculumItem
+        //   lecture={lecture}
+        //   type={"user"}
+        //   key={lecture.lectureId}
+        // />
+        <CurriculumItem
+          lecture={lecture}
+          type={"user"}
+          order={lecture.lectureOrder}
+          title={lecture.title}
+          time={lecture.time}
+          id={lecture.lectureId}
+          url={lecture.url}
+          key={lecture.lectureId}
+        />
       ))}
     </div>
   );
