@@ -10,6 +10,7 @@ import {
   fetchMyConsultingData,
 } from "@apis/myCommunity/myCommunityApi.js";
 import DropDown from "@components/myCommunity/DropDown.jsx";
+import PostList from "@components/myCommunity/PostList.jsx";
 
 const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -73,53 +74,20 @@ const MyCommunityPage = () => {
           setDropDownQnA={setDropDownQnA}
         />
       </TopBtnBox>
-      {/* 내 QnA 글 */}
-      {postType === "myPost" && dropDownQnA == true && (
-        <PostGrid
+
+      {postType === "myPost" && dropDownQnA && (
+        <PostList
+          posts={myQnAArr}
           totalPage={myQnAArrPage.totalPage}
           totalCount={myQnAArrPage.totalCount}
-        >
-          {myQnAArr.map((item) => {
-            return (
-              <MyPostCard
-                key={item.articleId}
-                title={item.title}
-                content={item.content}
-                nickName={item.nickname}
-                createTime={item.createTime}
-                courseTitle={item.courseTitle}
-                commentCount={item.commentCount}
-                likeCount={item.likeCount}
-                //조회수는 없고 스크랩수는 있음
-                // scrapCount={item.scrapCount}
-              />
-            );
-          })}
-        </PostGrid>
+        />
       )}
-      {/* 내 고민글 */}
-      {postType === "myPost" && dropDownQnA == false && (
-        <PostGrid
+      {postType === "myPost" && !dropDownQnA && (
+        <PostList
+          posts={myConsultingArr}
           totalPage={myConsultingArrPage.totalPage}
           totalCount={myConsultingArrPage.totalCount}
-        >
-          {myConsultingArr.map((item) => {
-            return (
-              <MyPostCard
-                key={item.articleId}
-                title={item.title}
-                content={item.content}
-                nickName={item.nickname}
-                createTime={item.createTime}
-                courseTitle={item.courseTitle}
-                commentCount={item.commentCount}
-                likeCount={item.likeCount}
-                //조회수는 없고 스크랩수는 있음
-                // scrapCount={item.scrapCount}
-              />
-            );
-          })}
-        </PostGrid>
+        />
       )}
 
       <MyCommunityPagination />
