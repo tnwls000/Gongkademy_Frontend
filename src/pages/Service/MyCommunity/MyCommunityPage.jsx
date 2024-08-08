@@ -1,24 +1,41 @@
-import { useState } from "react";
-import {
-  SelectedPostBtn,
-  DropDownButton,
-  DropDownLi,
-  DropDownFlex,
-  PostGrid,
-  TopBtnBox,
-} from "./MyCommunityPage.style";
+import { useState, useEffect, useReducer } from "react";
+import { SelectedPostBtn, PostGrid, TopBtnBox } from "./MyCommunityPage.style";
 import { Flex } from "@components/common/flex/Flex";
 import MyPostCard from "./MyPostCard";
 import MyCommunityPagination from "./MyCommunityPagination";
+import axios from "axios";
+import { DropUpIcon, DropDownIcon } from "@assets/svg/icons";
+import {
+  fetchMyQnAData,
+  fetchMyConsultingData,
+} from "@apis/myCommunity/myCommunityApi.js";
+import DropDown from "@components/myCommunity/DropDown.jsx";
+import PostList from "@components/myCommunity/PostList.jsx";
 
 const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
-
-  const [myPostBtn, setMyPostBtn] = useState(true);
-  const [listPostBtn, setListPostBtn] = useState(false);
-  const [scrapPostBtn, setScrapPostBtn] = useState(false);
-
   const [dropDownQnA, setDropDownQnA] = useState(true);
+
+  const [postType, setPostType] = useState("myPost");
+
+  const [myQnAArrPage, setMyQnAArrPage] = useState([]);
+  const [myQnAArr, setMyQnAArr] = useState([]);
+
+  const [myConsultingArrPage, setMyConsultingArrPage] = useState([]);
+  const [myConsultingArr, setMyConsultingArr] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const qnaData = await fetchMyQnAData();
+      const consultingData = await fetchMyConsultingData();
+      setMyQnAArrPage(qnaData);
+      setMyQnAArr(qnaData.data);
+      setMyConsultingArrPage(consultingData);
+      setMyConsultingArr(consultingData.data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -26,103 +43,53 @@ const MyCommunityPage = () => {
         <Flex gap="16px">
           <SelectedPostBtn
             onClick={() => {
-              setMyPostBtn(true);
-              setListPostBtn(false);
-              setScrapPostBtn(false);
+              setPostType("myPost");
             }}
-            selected={myPostBtn}
+            selected={postType === "myPost"}
           >
             내가 쓴 게시글
           </SelectedPostBtn>
           <SelectedPostBtn
             onClick={() => {
-              setMyPostBtn(false);
-              setListPostBtn(true);
-              setScrapPostBtn(false);
+              setPostType("likePost");
             }}
-            selected={listPostBtn}
+            selected={postType === "likePost"}
           >
             좋아요 누른 게시글
           </SelectedPostBtn>
           <SelectedPostBtn
             onClick={() => {
-              setMyPostBtn(false);
-              setListPostBtn(false);
-              setScrapPostBtn(true);
+              setPostType("scrapPost");
             }}
-            selected={scrapPostBtn}
+            selected={postType === "scrapPost"}
           >
             스크랩한 게시글
           </SelectedPostBtn>
         </Flex>
 
-        {/* 드롭다운 */}
-        <DropDownButton
-          onClick={() => {
-            setDropDown(!dropDown);
-          }}
-        >
-          <Flex justify="space-evenly" align="center">
-            {dropDownQnA ? "Q&A" : "고민"}
-
-            {dropDown ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="none"
-              >
-                <path stroke="#111113" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="none"
-              >
-                <path stroke="#111113" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-              </svg>
-            )}
-          </Flex>
-          {dropDown && (
-            <DropDownFlex>
-              <DropDownLi
-                onClick={() => {
-                  setDropDownQnA(true);
-                }}
-              >
-                Q&A
-              </DropDownLi>
-              <DropDownLi
-                onClick={() => {
-                  setDropDownQnA(false);
-                }}
-              >
-                고민
-              </DropDownLi>
-            </DropDownFlex>
-          )}
-        </DropDownButton>
+        <DropDown
+          dropDown={dropDown}
+          setDropDown={setDropDown}
+          dropDownQnA={dropDownQnA}
+          setDropDownQnA={setDropDownQnA}
+        />
       </TopBtnBox>
-      <PostGrid>
-        <MyPostCard />
-        <MyPostCard />
-        <MyPostCard />
-        <MyPostCard />
-      </PostGrid>
+
+      {postType === "myPost" && dropDownQnA && (
+        <PostList
+          posts={myQnAArr}
+          totalPage={myQnAArrPage.totalPage}
+          totalCount={myQnAArrPage.totalCount}
+        />
+      )}
+      {postType === "myPost" && !dropDownQnA && (
+        <PostList
+          posts={myConsultingArr}
+          totalPage={myConsultingArrPage.totalPage}
+          totalCount={myConsultingArrPage.totalCount}
+        />
+      )}
+
       <MyCommunityPagination />
     </>
   );
