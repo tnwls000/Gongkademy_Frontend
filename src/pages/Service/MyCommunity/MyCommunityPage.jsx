@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import {
   SelectedPostBtn,
   DropDownButton,
@@ -16,39 +16,16 @@ const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
   const [dropDownQnA, setDropDownQnA] = useState(true);
 
-  // const [myPostBtn, setMyPostBtn] = useState(true);
-  // const [listPostBtn, setListPostBtn] = useState(false);
-  // const [scrapPostBtn, setScrapPostBtn] = useState(false);
   const [postType, setPostType] = useState("myPost");
 
-  const [myPostArr, setMyPostArr] = useState([]);
+  const [myQnAArrPage, setMyQnAArrPage] = useState([]);
   const [myQnAArr, setMyQnAArr] = useState([]);
-  //내 고민 api 불러오기
-  const fetchMyPostData = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/community/consulting",
-        // 여기서는 8080이 안 되고 3000으로 해야 됨
-        {
-          withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
-      console.log(response); //데이터가 안 불러와지는데... post가 안 된 거 아닐까...
-      setMyPostArr(response.data);
-      console.log("내 게시글", myPostArr);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
 
-  //QnA API get
+  //myQnA API get
   const fetchMyQnAData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/coucommunity/question",
+        "http://localhost:8080/community/question/myboard",
         {
           withCredentials: true,
           headers: {
@@ -56,8 +33,10 @@ const MyCommunityPage = () => {
           },
         }
       );
-      setMyQnAArr(response.data);
-      console.log("QnA 불러오기", myQnAArr);
+
+      setMyQnAArrPage(response.data);
+
+      setMyQnAArr(response.data.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -65,7 +44,6 @@ const MyCommunityPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetchMyPostData();
       await fetchMyQnAData();
     };
 
@@ -163,13 +141,31 @@ const MyCommunityPage = () => {
           )}
         </DropDownButton>
       </TopBtnBox>
+      {/* 내 고민글 */}
+      {postType === "myPost" && dropDownQnA == true && (
+        <PostGrid
+          totalPage={myQnAArrPage.totalPage}
+          totalCount={myQnAArrPage.totalCount}
+        >
+          {myQnAArr.map((item) => {
+            return (
+              <MyPostCard
+                key={item.articleId}
+                title={item.title}
+                content={item.content}
+                nickName={item.nickname}
+                createTime={item.createTime}
+                courseTitle={item.courseTitle}
+                commentCount={item.commentCount}
+                likeCount={item.likeCount}
+                //조회수는 없고 스크랩수는 있음
+                // scrapCount={item.scrapCount}
+              />
+            );
+          })}
+        </PostGrid>
+      )}
 
-      <PostGrid>
-        <MyPostCard />
-        <MyPostCard />
-        <MyPostCard />
-        <MyPostCard />
-      </PostGrid>
       <MyCommunityPagination />
     </>
   );
