@@ -1,12 +1,5 @@
 import { useState, useEffect, useReducer } from "react";
-import {
-  SelectedPostBtn,
-  DropDownButton,
-  DropDownLi,
-  DropDownFlex,
-  PostGrid,
-  TopBtnBox,
-} from "./MyCommunityPage.style";
+import { SelectedPostBtn, PostGrid, TopBtnBox } from "./MyCommunityPage.style";
 import { Flex } from "@components/common/flex/Flex";
 import MyPostCard from "./MyPostCard";
 import MyCommunityPagination from "./MyCommunityPagination";
@@ -16,6 +9,7 @@ import {
   fetchMyQnAData,
   fetchMyConsultingData,
 } from "@apis/myCommunity/myCommunityApi.js";
+import DropDown from "@components/myCommunity/DropDown.jsx";
 
 const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -72,40 +66,12 @@ const MyCommunityPage = () => {
           </SelectedPostBtn>
         </Flex>
 
-        {/* 드롭다운 */}
-        <DropDownButton
-          onClick={() => {
-            setDropDown(!dropDown);
-          }}
-        >
-          <Flex justify="space-evenly" align="center">
-            {dropDownQnA ? "Q&A" : "고민"}
-
-            {dropDown ? (
-              <DropUpIcon width="16" height="16" />
-            ) : (
-              <DropDownIcon width="16" height="16" />
-            )}
-          </Flex>
-          {dropDown && (
-            <DropDownFlex>
-              <DropDownLi
-                onClick={() => {
-                  setDropDownQnA(true);
-                }}
-              >
-                Q&A
-              </DropDownLi>
-              <DropDownLi
-                onClick={() => {
-                  setDropDownQnA(false);
-                }}
-              >
-                고민
-              </DropDownLi>
-            </DropDownFlex>
-          )}
-        </DropDownButton>
+        <DropDown
+          dropDown={dropDown}
+          setDropDown={setDropDown}
+          dropDownQnA={dropDownQnA}
+          setDropDownQnA={setDropDownQnA}
+        />
       </TopBtnBox>
       {/* 내 QnA 글 */}
       {postType === "myPost" && dropDownQnA == true && (
