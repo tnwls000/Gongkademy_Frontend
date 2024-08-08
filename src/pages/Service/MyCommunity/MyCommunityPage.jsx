@@ -11,6 +11,7 @@ import { Flex } from "@components/common/flex/Flex";
 import MyPostCard from "./MyPostCard";
 import MyCommunityPagination from "./MyCommunityPagination";
 import axios from "axios";
+import { DropUp, DropDown } from "@assets/svg/icons";
 
 const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -90,35 +91,9 @@ const MyCommunityPage = () => {
             {dropDownQnA ? "Q&A" : "고민"}
 
             {dropDown ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="none"
-              >
-                <path stroke="#111113" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-                <path stroke="#000" stroke-opacity=".2" d="M14 11 8 5l-6 6" />
-              </svg>
+              <DropUp width="16" height="16" />
             ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="none"
-              >
-                <path stroke="#111113" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-                <path stroke="#000" stroke-opacity=".2" d="m2 5 6 6 6-6" />
-              </svg>
+              <DropDown width="16" height="16" />
             )}
           </Flex>
           {dropDown && (
