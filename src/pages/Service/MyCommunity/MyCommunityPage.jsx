@@ -12,6 +12,10 @@ import MyPostCard from "./MyPostCard";
 import MyCommunityPagination from "./MyCommunityPagination";
 import axios from "axios";
 import { DropUpIcon, DropDownIcon } from "@assets/svg/icons";
+import {
+  fetchMyQnAData,
+  fetchMyConsultingData,
+} from "@apis/myCommunity/myCommunityApi.js";
 
 const MyCommunityPage = () => {
   const [dropDown, setDropDown] = useState(false);
@@ -25,48 +29,14 @@ const MyCommunityPage = () => {
   const [myConsultingArrPage, setMyConsultingArrPage] = useState([]);
   const [myConsultingArr, setMyConsultingArr] = useState([]);
 
-  //myQnA API get
-  const fetchMyQnAData = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/community/question/myboard",
-        {
-          withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
-      setMyQnAArrPage(response.data);
-      setMyQnAArr(response.data.data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-
-  //myConsulting API get
-  const fetchMyConsultingData = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:8080/community/consulting/myboard",
-        {
-          withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
-      setMyConsultingArrPage(response.data);
-      setMyConsultingArr(response.data.data);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
-      await fetchMyQnAData();
-      await fetchMyConsultingData();
+      const qnaData = await fetchMyQnAData();
+      const consultingData = await fetchMyConsultingData();
+      setMyQnAArrPage(qnaData);
+      setMyQnAArr(qnaData.data);
+      setMyConsultingArrPage(consultingData);
+      setMyConsultingArr(consultingData.data);
     };
 
     fetchData();
