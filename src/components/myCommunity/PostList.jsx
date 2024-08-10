@@ -4,7 +4,8 @@ import MyPostCard from "@pages/Service/MyCommunity/MyPostCard";
 import { PostGrid } from "./PostList.style";
 
 const PostList = ({ posts, totalPage, totalCount }) => (
-  <PostGrid totalPage={totalPage} totalCount={totalCount}>
+  // <PostGrid totalPage={totalPage} totalCount={totalCount}>
+  <PostGrid>
     {posts.map((item) => (
       <MyPostCard
         key={item.articleId}

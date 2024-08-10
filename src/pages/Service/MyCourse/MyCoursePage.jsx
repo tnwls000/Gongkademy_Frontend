@@ -117,17 +117,21 @@ const MyCoursePage = () => {
         </Flex>
       </Flex>
       {myProcessingCourseBtn ? (
-        <MyCourseGrid>
-          {nocompletedCourseArr.map((course) => {
-            return (
-              <MyCourseCard
-                key={course.courseId}
-                courseName={course.title}
-                courseImgAddress={course.courseImgAddress}
-              />
-            ); //수강률. totalCourseTime은 강의의 시간일까 수강한 시간일까
-          })}
-        </MyCourseGrid>
+        !nocompletedCourseArr.length ? (
+          <p>"아직 수강 중인 강좌가 없습니다. 첫 수업을 담아보세요!"</p>
+        ) : (
+          <MyCourseGrid>
+            {nocompletedCourseArr.map((course) => {
+              return (
+                <MyCourseCard
+                  key={course.courseId}
+                  courseName={course.title}
+                  courseImgAddress={course.courseImgAddress}
+                />
+              ); //수강률. totalCourseTime은 강의의 시간일까 수강한 시간일까
+            })}
+          </MyCourseGrid>
+        )
       ) : !completedCourseArr.length ? (
         <p>"아직 수강 완료한 강좌가 없습니다. 분발하세요!"</p>
       ) : (

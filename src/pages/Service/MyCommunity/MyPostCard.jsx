@@ -18,7 +18,6 @@ import {
 } from "@assets/svg/icons";
 
 const MyPostCard = ({
-  key,
   title,
   content,
   nickName,

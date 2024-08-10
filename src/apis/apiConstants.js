@@ -56,6 +56,13 @@ export const END_POINT = {
 
   COMMUNITY_REVIEW: "community/comment",
   COMMUNITY_REVIEW_COMMENT: (commentId) => `community/comment/${commentId}`,
+
+  COMMUNITY_QUESTION_MYBOARD: "community/question/myboard",
+
+  COMMUNITY_CONSULTING_MYBOARD: "community/consulting/myboard",
+  COMMUNITY_QUESTION_LIKED: "community/question/liked",
+  COMMUNITY_CONSULTING_LIKED: "community/consulting/liked",
+  COMMUNITY_CONSULTING_SCRAPPED: "community/consulting/scrapped",
 };
 
 export const HTTP_STATUS_CODE = {
