@@ -12,26 +12,36 @@ import {
 } from "./MyPostCard.style";
 import {
   CommentIcon,
+  FilledBookmarkIcon,
+  FilledLikeIcon,
   NonFilledBookmarkIcon,
   NonFilledLikeIcon,
   ViewIcon,
 } from "@assets/svg/icons";
+import { END_POINT } from "@apis/apiConstants";
+import { PATH } from "@router/Constants";
 
 const MyPostCard = ({
   title,
+  scrapCount,
   content,
   nickName,
   createTime,
   courseTitle,
   commentCount,
   likeCount,
+  view,
 }) => {
   return (
     <MyPostContainer>
       <Flex height="100%" direction="column" justify="space-between">
         <Flex justify="space-between" align="flex-start">
           <MyPostTitle>{title}</MyPostTitle>
-          <NonFilledBookmarkIcon width="24" height="24" />
+          {!scrapCount ? (
+            <NonFilledBookmarkIcon width="24" height="24" />
+          ) : (
+            <FilledBookmarkIcon width="24" height="24" />
+          )}
         </Flex>
         <Flex align="center">
           <MyPostText>{content}</MyPostText>
@@ -48,13 +58,18 @@ const MyPostCard = ({
               <MyPostComment>{commentCount}</MyPostComment>
             </Flex>
             <Flex align="center" gap="4px">
-              <NonFilledLikeIcon width="16" height="16" />
+              {!likeCount ? (
+                <NonFilledLikeIcon width="16" height="16" />
+              ) : (
+                <FilledLikeIcon width="16" height="16" />
+              )}
+
               <MyPostLike>{likeCount}</MyPostLike>
             </Flex>
             <Flex align="center" gap="4px">
               <ViewIcon width="16" height="16" />
 
-              <MyPostView>조회수</MyPostView>
+              <MyPostView>{view}</MyPostView>
             </Flex>
           </Flex>
         </Flex>

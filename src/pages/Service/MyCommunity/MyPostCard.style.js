@@ -6,6 +6,9 @@ export const MyPostContainer = styled.div`
   height: 116px;
   padding: 16px 12px;
   border-bottom: solid 1px black;
+  &:hover {
+    background-color: ${color.gray100};
+  }
 `;
 
 export const MyPostTitle = styled.p`

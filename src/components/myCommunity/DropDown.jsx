@@ -20,8 +20,19 @@ const DropDown = ({ dropDown, setDropDown, dropDownType, setDropDownType }) => (
     </Flex>
     {dropDown && (
       <DropDownFlex>
-        <DropDownLi onClick={() => setDropDownType("qna")}>Q&A</DropDownLi>
-        <DropDownLi onClick={() => setDropDownType("consulting")}>
+        <DropDownLi
+          style={{ borderTopLeftRadius: "8px", borderTopRightRadius: "8px" }}
+          onClick={() => setDropDownType("qna")}
+        >
+          Q&A
+        </DropDownLi>
+        <DropDownLi
+          style={{
+            borderBottomLeftRadius: "8px",
+            borderBottomRightRadius: "8px",
+          }}
+          onClick={() => setDropDownType("consulting")}
+        >
           고민
         </DropDownLi>
       </DropDownFlex>
